@@ -11,18 +11,24 @@ export default function SearchBar() {
   });
 
   const handleChange = ({ target }) => {
-    const { name } = target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name, value } = target;
     setSearch({ ...search, [name]: value });
   };
 
   const handleClick = () => {
     const { searchInput, searchRadio } = search;
-    console.log(searchInput, searchRadio);
-    const url = history.location.pathname === '/meals'
-      ? `https://www.themealdb.com/api/json/v1/1/filter.php?${searchRadio}=${searchInput}`
-      : `https://www.thecocktaildb.com/api/json/v1/1/search.php?${searchRadio}=${searchInput}`;
-    // console.log(history.location.pathname);
+    // console.log(searchInput, searchRadio);
+    let url = '';
+    if (history.location.pathname === '/meals' && searchRadio === 'i') {
+      url = `https://www.themealdb.com/api/json/v1/1/filter.php?${searchRadio}=${searchInput}`;
+    } else if (history.location.pathname === '/meals') {
+      url = `https://www.themealdb.com/api/json/v1/1/search.php?${searchRadio}=${searchInput}`;
+    }
+    if (history.location.pathname === '/drinks' && searchRadio === 'i') {
+      url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?${searchRadio}=${searchInput}`;
+    } else if (history.location.pathname === '/drinks') {
+      url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?${searchRadio}=${searchInput}`;
+    }
     if (searchInput.length > 1 && searchRadio === 'f') {
       global.alert('Your search must have only 1 (one) character');
     }

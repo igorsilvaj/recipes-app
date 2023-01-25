@@ -45,9 +45,8 @@ export function fetchApi(url) {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      if (url.includes('thecocktaildb')) console.log('drinks');
-      if (url.includes('themealdb')) console.log('meal');
       dispatch(successfulRequest(data));
+      console.log(data);
     } catch (error) {
       console.log(error);
       dispatch(failedRequest(error));

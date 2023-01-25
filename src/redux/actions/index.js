@@ -30,3 +30,27 @@ export const inProgressDrink = (ingredients, id) => ({
   ingredients,
   id,
 });
+
+export const START_REQUEST = 'START_REQUEST';
+export const SUCESS_REQUEST = 'SUCESS_REQUEST';
+export const FAIL_REQUEST = 'FAIL_REQUEST';
+
+export const startRequest = () => ({ type: START_REQUEST });
+export const successfulRequest = (questions) => ({ type: SUCESS_REQUEST, questions });
+export const failedRequest = (error) => ({ type: FAIL_REQUEST, error });
+
+export function fetchApi(url) {
+  return async (dispatch) => {
+    dispatch(startRequest());
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      if (url.includes('thecocktaildb')) console.log('drinks');
+      if (url.includes('themealdb')) console.log('meal');
+      dispatch(successfulRequest(data));
+    } catch (error) {
+      console.log(error);
+      dispatch(failedRequest(error));
+    }
+  };
+}

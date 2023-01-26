@@ -140,7 +140,7 @@ describe('Testes de rota iniciando em /meals', () => {
     });
   });
   it('Deve redirecionar caso encontre apenas 1 receita', async () => {
-    const { history } = renderWithRouterAndRedux(<App />, {}, '/meals');
+    renderWithRouterAndRedux(<App />, {}, '/meals');
     const btnEnableSearch = screen.getByTestId(searchTopBtn);
     expect(btnEnableSearch).toBeVisible();
     userEvent.click(btnEnableSearch);

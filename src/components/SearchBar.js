@@ -59,49 +59,54 @@ function SearchBar(props) {
   };
 
   return (
-    <div>
+    <div className="searchBarContainer">
       <input
         type="text"
         name="searchInput"
+        className="searchInput"
         value={ search.searchInput }
+        placeholder="Search"
         data-testid="search-input"
         onChange={ (e) => handleChange(e) }
       />
-      <label htmlFor="ingredient-search-radio">
-        <input
-          type="radio"
-          name="searchRadio"
-          value="i"
-          id="ingredient-search-radio"
-          data-testid="ingredient-search-radio"
-          onChange={ (e) => handleChange(e) }
-        />
-        Ingredient
-      </label>
-      <label htmlFor="name-search-radio">
-        <input
-          type="radio"
-          name="searchRadio"
-          value="s"
-          id="name-search-radio"
-          data-testid="name-search-radio"
-          onChange={ (e) => handleChange(e) }
-        />
-        Name
-      </label>
-      <label htmlFor="first-letter-search-radio">
-        <input
-          type="radio"
-          name="searchRadio"
-          value="f"
-          id="first-letter-search-radio"
-          data-testid="first-letter-search-radio"
-          onChange={ (e) => handleChange(e) }
-        />
-        First Letter
-      </label>
+      <div className="searchRadioContainer">
+        <label htmlFor="ingredient-search-radio" className="searchLbl">
+          <input
+            type="radio"
+            name="searchRadio"
+            value="i"
+            id="ingredient-search-radio"
+            data-testid="ingredient-search-radio"
+            onChange={ (e) => handleChange(e) }
+          />
+          Ingredient
+        </label>
+        <label htmlFor="name-search-radio" className="searchLbl">
+          <input
+            type="radio"
+            name="searchRadio"
+            value="s"
+            id="name-search-radio"
+            data-testid="name-search-radio"
+            onChange={ (e) => handleChange(e) }
+          />
+          Name
+        </label>
+        <label htmlFor="first-letter-search-radio" className="searchLbl">
+          <input
+            type="radio"
+            name="searchRadio"
+            value="f"
+            id="first-letter-search-radio"
+            data-testid="first-letter-search-radio"
+            onChange={ (e) => handleChange(e) }
+          />
+          First Letter
+        </label>
+      </div>
       <button
         type="button"
+        className="searchBtn"
         data-testid="exec-search-btn"
         onClick={ handleClick }
       >

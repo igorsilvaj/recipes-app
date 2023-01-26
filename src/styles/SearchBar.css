@@ -1,0 +1,51 @@
+.searchBarContainer {
+  background-color: rgb(65, 25, 127);
+  border-radius: 10px;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 0 auto;
+  width: 338px;
+}
+
+.searchInput {
+  border: 1px solid rgb(177, 177, 177);
+  border-radius: 5px;
+  height: 40px;
+  padding: 0 10px;
+  width: 100%;
+}
+
+.searchLbl {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 3px;
+}
+
+.searchRadioContainer {
+  color: white;
+  display: flex;
+  flex-flow: row wrap;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 400;
+  justify-content: space-between;
+  line-height: 9px;
+  width: 208.16px;
+}
+
+.searchBtn {
+  background: rgb(252, 196, 54);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  height: 25px;
+  line-height: 12px;
+  margin-bottom: 5px;
+  width: 208.16px;
+}

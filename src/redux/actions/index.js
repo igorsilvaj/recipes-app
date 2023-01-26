@@ -32,12 +32,17 @@ export const inProgressDrink = (ingredients, id) => ({
 });
 
 export const START_REQUEST = 'START_REQUEST';
-export const SUCESS_REQUEST = 'SUCESS_REQUEST';
+export const SUCESSFUL_REQUEST = 'SUCESSFUL_REQUEST';
 export const FAIL_REQUEST = 'FAIL_REQUEST';
 
+export const SAVE_RECIPES = 'SAVE_RECIPES';
+export const SAVE_CATEGORIES = 'SAVE_CATEGORIES';
+
 export const startRequest = () => ({ type: START_REQUEST });
-export const successfulRequest = (data) => ({ type: SUCESS_REQUEST, data });
+export const successfulRequest = () => ({ type: SUCESSFUL_REQUEST });
 export const failedRequest = (error) => ({ type: FAIL_REQUEST, error });
+export const saveRecipes = (recipes) => ({ type: SAVE_RECIPES, recipes });
+export const saveCategories = (categories) => ({ type: SAVE_CATEGORIES, categories });
 
 export function fetchApi(url) {
   return async (dispatch) => {
@@ -45,7 +50,12 @@ export function fetchApi(url) {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      dispatch(successfulRequest(data));
+      dispatch(successfulRequest());
+      if (url.includes('list')) {
+        dispatch(saveCategories(data));
+      } else {
+        dispatch(saveRecipes(data));
+      }
     } catch (error) {
       console.log(error);
       dispatch(failedRequest(error));

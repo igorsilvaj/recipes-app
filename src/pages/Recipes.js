@@ -18,7 +18,7 @@ function Recipes(props) {
       <button type="button" data-testid="search-top-btn">button</button>
       <SearchBar />
       {
-        data && data[path].length > 1
+        data && data[path]
           ? (
             data[path].map((e, index) => (
               index < maxRecipeCards && (

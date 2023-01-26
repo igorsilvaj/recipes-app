@@ -18,12 +18,17 @@ function SearchBar(props) {
   useEffect(() => {
     const { pathname } = history.location;
     const path = pathname.split('/')[1];
-    if (data && data[path].length === 1) {
-      return history.push(
-        `${pathname}/${data[path][0][
-          `id${path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)}`
-        ]}`,
-      );
+    if (data) {
+      if (!data[path]) {
+        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      }
+      if (data[path].length === 1) {
+        return history.push(
+          `${pathname}/${data[path][0][
+            `id${path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)}`
+          ]}`,
+        );
+      }
     }
   }, [data]);
 

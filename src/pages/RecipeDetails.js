@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchApi } from '../redux/actions';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { fetchApi } from '../redux/actions';
 
 function RecipeDetails(props) {
   const { getData, data, match } = props;
@@ -29,5 +30,12 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   data: state.apiResponse.data,
 });
+
+RecipeDetails.propTypes = {
+  getData: PropTypes.func.isRequired,
+  data: PropTypes.shape({}).isRequired,
+  match: PropTypes.shape({ params, id }).isRequired,
+
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);

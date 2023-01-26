@@ -53,4 +53,3 @@ RecipeCard.propTypes = {
 }.isRequired;
 
 export default RecipeCard;
-

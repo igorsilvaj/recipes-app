@@ -1,23 +1,41 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import { fetchApi } from '../redux/actions';
-import store from '../redux/store';
 
-export default function SearchBar() {
+function SearchBar(props) {
+  const { getData, data } = props;
   const history = useHistory();
   const [search, setSearch] = useState({
     searchInput: '',
     searchRadio: '',
   });
 
+  // Sempre que data for atualizado verifica se tem somente 1 receita
+  // caso tenha só 1 redireciona para /"pagina atual meals ou drinks"/"id"
+  useEffect(() => {
+    const { pathname } = history.location;
+    const path = pathname.split('/')[1];
+    if (data && data[path].length === 1) {
+      return history.push(
+        `${pathname}/${data[path][0][
+          `id${path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)}`
+        ]}`,
+      );
+    }
+  }, [data]);
+
+  // função padrão para controlar os componentes no estado local
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setSearch({ ...search, [name]: value });
   };
 
+  // Ao clicar em SEARCH faz um fetch com o endpoint dependendo da pagina atual
   const handleClick = () => {
     const { searchInput, searchRadio } = search;
-    // console.log(searchInput, searchRadio);
     let url = '';
     if (history.location.pathname === '/meals' && searchRadio === 'i') {
       url = `https://www.themealdb.com/api/json/v1/1/filter.php?${searchRadio}=${searchInput}`;
@@ -32,7 +50,7 @@ export default function SearchBar() {
     if (searchInput.length > 1 && searchRadio === 'f') {
       global.alert('Your search must have only 1 (one) character');
     }
-    store.dispatch(fetchApi(url));
+    getData(url);
   };
 
   return (
@@ -87,3 +105,22 @@ export default function SearchBar() {
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({
+  data: state.apiResponse.data,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getData: (url) => dispatch(fetchApi(url)),
+});
+
+SearchBar.defaultProps = {
+  data: null,
+};
+
+SearchBar.propTypes = {
+  getData: PropTypes.func.isRequired,
+  data: PropTypes.shape({}),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

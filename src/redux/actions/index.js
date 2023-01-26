@@ -36,7 +36,7 @@ export const SUCESS_REQUEST = 'SUCESS_REQUEST';
 export const FAIL_REQUEST = 'FAIL_REQUEST';
 
 export const startRequest = () => ({ type: START_REQUEST });
-export const successfulRequest = (questions) => ({ type: SUCESS_REQUEST, questions });
+export const successfulRequest = (data) => ({ type: SUCESS_REQUEST, data });
 export const failedRequest = (error) => ({ type: FAIL_REQUEST, error });
 
 export function fetchApi(url) {

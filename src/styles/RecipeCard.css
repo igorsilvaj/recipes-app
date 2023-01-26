@@ -1,0 +1,23 @@
+.recipeCard {
+  background: white;
+  border: 0.518px solid rgb(177, 177, 177);
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 166.12px;
+  width: 163.2px;
+}
+
+.imgCard {
+  height: 135px;
+  width: 163px;
+}
+
+.txtCard {
+  color: rgb(26, 27, 28);
+  font-family: Epilogue , sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 12px;
+  margin: 5px 10px 0;
+}

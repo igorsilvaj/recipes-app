@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
 import SearchBar from '../components/SearchBar';
 import { fetchApi } from '../redux/actions';
@@ -35,6 +36,7 @@ function Recipes(props) {
 
   return (
     <div>
+      <Footer />
       Recipes
       <button type="button" data-testid="search-top-btn">button</button>
       <SearchBar />

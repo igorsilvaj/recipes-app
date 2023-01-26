@@ -9,6 +9,17 @@ function RecipeCard(props) {
   const { pathname } = history.location;
   const path = pathname.split('/')[1];
   const matcher = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1);
+
+  const HandleCLick = () => {
+    if (pathname.includes('/meals')) {
+      history.push(`/meals/${recipe.idMeal}`);
+      console.log(recipe);
+    }
+    if (pathname.includes('/drinks')) {
+      history.push(`/drinks/${recipe.idDrink}`);
+      console.log(recipe);
+    }
+  };
   return (
     <div className="recipeCard" data-testid={ `${index}-recipe-card` }>
       <img
@@ -24,6 +35,14 @@ function RecipeCard(props) {
           {recipe[`str${matcher}`]}
         </span>
       </p>
+      <button
+        type="button"
+        onClick={ HandleCLick }
+      >
+
+        Veja Detalhes
+
+      </button>
     </div>
   );
 }
@@ -34,3 +53,4 @@ RecipeCard.propTypes = {
 }.isRequired;
 
 export default RecipeCard;
+

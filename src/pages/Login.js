@@ -31,7 +31,7 @@ function Login({ dispatch }) {
 
   function handleClick() {
     const { email } = userLogin;
-    localStorage.setItem('user', email);
+    localStorage.setItem('user', JSON.stringify({ email }));
     dispatch(saveUser(email));
     setWillRedirect(true);
   }

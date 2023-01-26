@@ -10,10 +10,9 @@ import { fetchApi } from '../redux/actions';
 import RecipeCategories from '../components/RecipeCategories';
 
 function Recipes(props) {
-  const { getData } = props;
+  const { getData, data } = props;
   const history = useHistory();
   const firstMount = useRef(true);
-  const { data } = props;
   const { pathname } = history.location;
   const path = pathname.split('/')[1];
   const maxRecipeCards = 12;
@@ -36,7 +35,6 @@ function Recipes(props) {
 
   return (
     <div>
-      <Footer />
       Recipes
       <button type="button" data-testid="search-top-btn">button</button>
       <SearchBar />
@@ -56,6 +54,7 @@ function Recipes(props) {
           )
           : (<div />)
       }
+      <Footer />
     </div>
   );
 }

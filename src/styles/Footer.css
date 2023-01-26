@@ -1,0 +1,26 @@
+.footer {
+  background: rgb(65, 25, 127);
+  bottom: 0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-flow: row wrap;
+  height: 52px;
+  justify-content: space-between;
+  position: fixed;
+  width: 360px;
+}
+
+.btnFooterDrink, .btnFooterMeal {
+  background-color: transparent;
+  border: none;
+  filter: invert(80%) sepia(72%) saturate(1169%)
+    hue-rotate(331deg) brightness(108%) contrast(98%);
+}
+
+.btnFooterDrink {
+  margin-left: 40px;
+}
+
+.btnFooterMeal {
+  margin-right: 40px;
+}

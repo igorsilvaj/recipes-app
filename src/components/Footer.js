@@ -18,6 +18,7 @@ export default function Footer() {
       <button
         onClick={ redirectToDrinkList }
         className="btnFooterDrink"
+        data-testid="drink-btn"
       >
         <img
           alt="Drink"
@@ -29,6 +30,7 @@ export default function Footer() {
       <button
         onClick={ redirectToMealList }
         className="btnFooterMeal"
+        data-testid="meals-btn"
       >
         <img
           alt="Meal"

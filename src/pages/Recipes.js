@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -10,28 +10,53 @@ import { fetchApi } from '../redux/actions';
 import RecipeCategories from '../components/RecipeCategories';
 
 function Recipes(props) {
-  const { getData, data } = props;
+  const { getData, data, selectedCategory } = props;
   const history = useHistory();
   const firstMount = useRef(true);
   const { pathname } = history.location;
   const path = pathname.split('/')[1];
   const maxRecipeCards = 12;
 
+  const [filteredRecipes, setFilteredRecipes] = useState(null);
+
+  // Renderiza as receitas nesse endpoint sem filtro toda vez que o path "url" muda
   useEffect(() => {
-    // Caso seja a primeira montagem do componente
-    // executa o que está dentro do if
-    if (firstMount.current) {
-      if (path.includes('meals')) {
+    if (path.includes('meals')) {
+      getData('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    }
+    if (path.includes('drinks')) {
+      getData('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    }
+  }, [path]);
+
+  // toda vez que as receitas que estão salvas em data forem alteradas
+  // as receitas filtradas precisam ter uma atualização
+  useEffect(() => {
+    if (!firstMount.current) {
+      setFilteredRecipes(data[path]);
+    }
+  }, [data]);
+
+  // Renderiza as receitas quando usuario clica em algum filtro
+  // não deve executar na primeira render do componente
+  useEffect(() => {
+    if (!firstMount.current) {
+      if (path.includes('meals') && selectedCategory !== '') {
+        getData(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`);
+      } else if (path.includes('meals')) {
         getData('https://www.themealdb.com/api/json/v1/1/search.php?s=');
       }
-      if (path.includes('drinks')) {
+      if (path.includes('drinks') && selectedCategory !== '') {
+        getData(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${selectedCategory}`);
+      } else if (path.includes('drinks')) {
         getData('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
       }
-    } else {
-      // seta para false após a primeira montagem
-      firstMount.current = false;
     }
-  }, []);
+    firstMount.current = false;
+  }, [selectedCategory]);
+
+  // const filteredRecipes = data && data[path]
+  //   && data[path].filter((e) => e.strCategory.includes(selectedCategory));
 
   return (
     <div>
@@ -39,12 +64,12 @@ function Recipes(props) {
       <button type="button" data-testid="search-top-btn">button</button>
       <SearchBar />
       {
-        data && data[path]
+        filteredRecipes
           ? (
             <div>
               <RecipeCategories />
               <div className="cardsContainer">
-                {data[path].map((e, index) => (
+                {filteredRecipes.map((e, index) => (
                   index < maxRecipeCards && (
                     <RecipeCard key={ `recipe-${index}` } recipe={ e } index={ index } />
                   )
@@ -65,15 +90,18 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   data: state.apiResponse.data,
+  selectedCategory: state.userInteraction.filterCategory,
 });
 
 Recipes.defaultProps = {
   data: null,
+  selectedCategory: '',
 };
 
 Recipes.propTypes = {
   data: PropTypes.shape({}),
   getData: PropTypes.func.isRequired,
+  selectedCategory: PropTypes.string,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes);

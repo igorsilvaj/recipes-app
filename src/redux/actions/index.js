@@ -44,8 +44,8 @@ export const failedRequest = (error) => ({ type: FAIL_REQUEST, error });
 export const saveRecipes = (recipes) => ({ type: SAVE_RECIPES, recipes });
 export const saveCategories = (categories) => ({ type: SAVE_CATEGORIES, categories });
 
-export function fetchApi(url) {
-  return async (dispatch) => {
+export const fetchApi = (url) => (
+  async (dispatch) => {
     dispatch(startRequest());
     try {
       const response = await fetch(url);
@@ -60,5 +60,8 @@ export function fetchApi(url) {
       console.log(error);
       dispatch(failedRequest(error));
     }
-  };
-}
+  }
+);
+
+export const FILTER_CATEGORY = 'FILTER_CATEGORY';
+export const filterCategory = (category) => ({ type: FILTER_CATEGORY, category });

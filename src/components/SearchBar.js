@@ -6,7 +6,7 @@ import { useHistory } from 'react-router';
 import { fetchApi } from '../redux/actions';
 
 function SearchBar(props) {
-  const { getData, data } = props;
+  const { getData, data, selectedCategory } = props;
   const history = useHistory();
   const [search, setSearch] = useState({
     searchInput: '',
@@ -22,7 +22,7 @@ function SearchBar(props) {
       if (!data[path]) {
         return global.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
-      if (data[path].length === 1) {
+      if (data[path].length === 1 && selectedCategory === '') {
         return history.push(
           `${pathname}/${data[path][0][
             `id${path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)}`
@@ -118,6 +118,7 @@ function SearchBar(props) {
 
 const mapStateToProps = (state) => ({
   data: state.apiResponse.data,
+  selectedCategory: state.userInteraction.filterCategory,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -126,11 +127,13 @@ const mapDispatchToProps = (dispatch) => ({
 
 SearchBar.defaultProps = {
   data: null,
+  selectedCategory: '',
 };
 
 SearchBar.propTypes = {
   getData: PropTypes.func.isRequired,
   data: PropTypes.shape({}),
+  selectedCategory: PropTypes.string,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

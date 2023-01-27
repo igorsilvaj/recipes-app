@@ -3,10 +3,10 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { fetchApi } from '../redux/actions';
+import { fetchApi, filterCategory } from '../redux/actions';
 
 function RecipeCategories(props) {
-  const { getCategories, categories } = props;
+  const { getCategories, categories, setCategory } = props;
   const history = useHistory();
   const firstMount = useRef(true);
   const { pathname } = history.location;
@@ -29,20 +29,40 @@ function RecipeCategories(props) {
     }
   }, []);
 
+  const handleClick = ({ target }) => {
+    const { name } = target;
+    if (name === 'All') {
+      setCategory('');
+    } else {
+      setCategory(name);
+    }
+  };
+
   return (
     <div className="categoriesContainer">
+      <button
+        type="button"
+        name="All"
+        data-testid="All-category-filter"
+        className="recipeCategory"
+        onClick={ (e) => handleClick(e) }
+      >
+        All
+      </button>
       {
         categories && categories[path]
           ? (
-            categories[path].map((e, index) => (
+            categories[path].map((category, index) => (
               index < maxCategories && (
                 <button
                   type="button"
-                  data-testid={ `${e.strCategory}-category-filter` }
+                  name={ category.strCategory }
+                  data-testid={ `${category.strCategory}-category-filter` }
                   key={ `category-${index}` }
                   className="recipeCategory"
+                  onClick={ (e) => handleClick(e) }
                 >
-                  {e.strCategory}
+                  {category.strCategory}
                 </button>
               )
             ))
@@ -55,6 +75,7 @@ function RecipeCategories(props) {
 
 const mapDispatchToProps = (dispatch) => ({
   getCategories: (url) => dispatch(fetchApi(url)),
+  setCategory: (category) => dispatch(filterCategory(category)),
 });
 
 const mapStateToProps = (state) => ({
@@ -67,6 +88,7 @@ RecipeCategories.defaultProps = {
 
 RecipeCategories.propTypes = {
   getCategories: PropTypes.func.isRequired,
+  setCategory: PropTypes.func.isRequired,
   categories: PropTypes.shape({}),
 };
 

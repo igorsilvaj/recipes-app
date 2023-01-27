@@ -1,16 +1,17 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 import Header from '../components/Header';
 import App from '../App';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 // import Recipes from '../pages/Recipes';
 
 describe('Testando componente <Header />', () => {
-  renderWithRouterAndRedux(<Header />);
   const DATA_TEST_ID_SEARCH = 'search-top-btn';
 
   it('Testa se todos os elementos do componente são renderizados', () => {
+    renderWithRouterAndRedux(<Header />);
     const pageTitle = screen.getByTestId('page-title');
     const profileIcon = screen.getByTestId('profile-top-btn');
     const searchIcon = screen.getByTestId(DATA_TEST_ID_SEARCH);
@@ -50,9 +51,16 @@ describe('Testando componente <Header />', () => {
     const { history } = renderWithRouterAndRedux(<App />, {}, '/meals');
     const searchIcon = screen.getByTestId(DATA_TEST_ID_SEARCH);
 
-    history.push(route);
-    expect(searchIcon).toBeVisible();
-    expect(history.location.pathname).toBe(route);
-    // expect(searchIcon).not.toBeInTheDocument();
+    expect(searchIcon).toBeInTheDocument();
+
+    act(() => {
+      history.push(route);
+      renderWithRouterAndRedux(<App />, {}, route);
+      expect(history.location.pathname).toBe(route);
+
+      // expect(searchIcon).not.toBeInTheDocument();
+    });
+
+    // screen.debug();
   });
 });

@@ -45,11 +45,13 @@ function Header() {
   };
   return (
     <>
+      <br />
       <h2
         data-testid="page-title"
       >
         { renderizeTittle() }
       </h2>
+      <br />
       <button
         onClick={ redirectToProfile }
         type="button"

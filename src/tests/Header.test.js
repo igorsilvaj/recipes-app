@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import Header from '../components/Header';
 import App from '../App';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
-import Recipes from '../pages/Recipes';
+// import Recipes from '../pages/Recipes';
 
 describe('Testando componente <Header />', () => {
   renderWithRouterAndRedux(<Header />);

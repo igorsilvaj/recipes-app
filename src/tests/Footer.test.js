@@ -1,8 +1,8 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouterAndRedux from '../test/helpers/renderWith';
 import Profile from '../pages/Profile';
+import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 
 describe('Footer test', () => {
   test('Verifica se os botões são renderizados e rota /meals', () => {

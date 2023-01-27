@@ -6,7 +6,7 @@ import { useHistory } from 'react-router';
 import { fetchApi } from '../redux/actions';
 
 function SearchBar(props) {
-  const { getData, data } = props;
+  const { getData, data, selectedCategory } = props;
   const history = useHistory();
   const [search, setSearch] = useState({
     searchInput: '',
@@ -22,7 +22,7 @@ function SearchBar(props) {
       if (!data[path]) {
         return global.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
-      if (data[path].length === 1) {
+      if (data[path].length === 1 && selectedCategory === '') {
         return history.push(
           `${pathname}/${data[path][0][
             `id${path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)}`
@@ -59,49 +59,54 @@ function SearchBar(props) {
   };
 
   return (
-    <div>
+    <div className="searchBarContainer">
       <input
         type="text"
         name="searchInput"
+        className="searchInput"
         value={ search.searchInput }
+        placeholder="Search"
         data-testid="search-input"
         onChange={ (e) => handleChange(e) }
       />
-      <label htmlFor="ingredient-search-radio">
-        <input
-          type="radio"
-          name="searchRadio"
-          value="i"
-          id="ingredient-search-radio"
-          data-testid="ingredient-search-radio"
-          onChange={ (e) => handleChange(e) }
-        />
-        Ingredient
-      </label>
-      <label htmlFor="name-search-radio">
-        <input
-          type="radio"
-          name="searchRadio"
-          value="s"
-          id="name-search-radio"
-          data-testid="name-search-radio"
-          onChange={ (e) => handleChange(e) }
-        />
-        Name
-      </label>
-      <label htmlFor="first-letter-search-radio">
-        <input
-          type="radio"
-          name="searchRadio"
-          value="f"
-          id="first-letter-search-radio"
-          data-testid="first-letter-search-radio"
-          onChange={ (e) => handleChange(e) }
-        />
-        First Letter
-      </label>
+      <div className="searchRadioContainer">
+        <label htmlFor="ingredient-search-radio" className="searchLbl">
+          <input
+            type="radio"
+            name="searchRadio"
+            value="i"
+            id="ingredient-search-radio"
+            data-testid="ingredient-search-radio"
+            onChange={ (e) => handleChange(e) }
+          />
+          Ingredient
+        </label>
+        <label htmlFor="name-search-radio" className="searchLbl">
+          <input
+            type="radio"
+            name="searchRadio"
+            value="s"
+            id="name-search-radio"
+            data-testid="name-search-radio"
+            onChange={ (e) => handleChange(e) }
+          />
+          Name
+        </label>
+        <label htmlFor="first-letter-search-radio" className="searchLbl">
+          <input
+            type="radio"
+            name="searchRadio"
+            value="f"
+            id="first-letter-search-radio"
+            data-testid="first-letter-search-radio"
+            onChange={ (e) => handleChange(e) }
+          />
+          First Letter
+        </label>
+      </div>
       <button
         type="button"
+        className="searchBtn"
         data-testid="exec-search-btn"
         onClick={ handleClick }
       >
@@ -113,6 +118,7 @@ function SearchBar(props) {
 
 const mapStateToProps = (state) => ({
   data: state.apiResponse.data,
+  selectedCategory: state.userInteraction.filterCategory,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -121,11 +127,13 @@ const mapDispatchToProps = (dispatch) => ({
 
 SearchBar.defaultProps = {
   data: null,
+  selectedCategory: '',
 };
 
 SearchBar.propTypes = {
   getData: PropTypes.func.isRequired,
   data: PropTypes.shape({}),
+  selectedCategory: PropTypes.string,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

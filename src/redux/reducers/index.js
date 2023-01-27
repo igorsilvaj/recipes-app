@@ -4,6 +4,7 @@ import userInfo from './userInfoReducer';
 import favoriteRecipes from './favoriteRecipesReducer';
 import inProgressRecipes from './inProgressRecipesReducer';
 import apiResponse from './apiResponseReducer';
+import userInteraction from './userInteractionReducer';
 
 const rootReducer = combineReducers({
   doneRecipes,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   favoriteRecipes,
   inProgressRecipes,
   apiResponse,
+  userInteraction,
 });
 
 export default rootReducer;

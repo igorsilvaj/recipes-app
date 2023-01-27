@@ -1,0 +1,15 @@
+.categoriesContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin: 10px 0;
+  width: 360px;
+}
+
+.recipeCategory {
+  border: 1.81px solid rgb(252, 196, 54);
+  border-radius: 50%;
+  box-sizing: border-box;
+  height: 45.28px;
+  width: 45.28px;
+}

@@ -140,7 +140,7 @@ describe('Testes de rota iniciando em /meals', () => {
     });
   });
   it('Deve redirecionar caso encontre apenas 1 receita', async () => {
-    renderWithRouterAndRedux(<App />, {}, '/meals');
+    renderWithRouterAndRedux(<App />, {}, '/meals/');
     const btnEnableSearch = screen.getByTestId(searchTopBtn);
     expect(btnEnableSearch).toBeVisible();
     userEvent.click(btnEnableSearch);
@@ -154,8 +154,8 @@ describe('Testes de rota iniciando em /meals', () => {
     userEvent.click(btnSearch);
     await act(async () => {
       expect(global.fetch).toBeCalled();
-      // await waitFor(() => expect(history.location.pathname).toBe('/meals/52977'));
-      // console.log(history);
+    /*  await waitFor(() => expect(history.location.pathname).toBe('/meals/52977'));
+      console.log(history); */
     });
     // screen.debug();
   });

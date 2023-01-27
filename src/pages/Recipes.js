@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
-import SearchBar from '../components/SearchBar';
+import Header from '../components/Header';
 
 function Recipes(props) {
   const history = useHistory();
@@ -13,22 +14,27 @@ function Recipes(props) {
   const maxRecipeCards = 12;
 
   return (
-    <div>
-      Recipes
-      <button type="button" data-testid="search-top-btn">button</button>
-      <SearchBar />
-      {
-        data && data[path]
-          ? (
-            data[path].map((e, index) => (
-              index < maxRecipeCards && (
-                <RecipeCard key={ `recipe-${index}` } recipe={ e } index={ index } />
-              )
-            ))
-          )
-          : (<div />)
-      }
-    </div>
+    <>
+      <Header />
+      <br />
+      <div>
+        <h2>
+          Recipes
+        </h2>
+        {
+          data && data[path]
+            ? (
+              data[path].map((e, index) => (
+                index < maxRecipeCards && (
+                  <RecipeCard key={ `recipe-${index}` } recipe={ e } index={ index } />
+                )
+              ))
+            )
+            : (<div />)
+        }
+      </div>
+      <Footer />
+    </>
   );
 }
 

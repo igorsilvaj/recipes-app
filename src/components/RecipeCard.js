@@ -38,10 +38,9 @@ function RecipeCard(props) {
       <button
         type="button"
         onClick={ HandleCLick }
+        className="btnGoToDetails"
       >
-
         Veja Detalhes
-
       </button>
     </div>
   );

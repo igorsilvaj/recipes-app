@@ -32,23 +32,36 @@ export const inProgressDrink = (ingredients, id) => ({
 });
 
 export const START_REQUEST = 'START_REQUEST';
-export const SUCESS_REQUEST = 'SUCESS_REQUEST';
+export const SUCESSFUL_REQUEST = 'SUCESSFUL_REQUEST';
 export const FAIL_REQUEST = 'FAIL_REQUEST';
 
-export const startRequest = () => ({ type: START_REQUEST });
-export const successfulRequest = (data) => ({ type: SUCESS_REQUEST, data });
-export const failedRequest = (error) => ({ type: FAIL_REQUEST, error });
+export const SAVE_RECIPES = 'SAVE_RECIPES';
+export const SAVE_CATEGORIES = 'SAVE_CATEGORIES';
 
-export function fetchApi(url) {
-  return async (dispatch) => {
+export const startRequest = () => ({ type: START_REQUEST });
+export const successfulRequest = () => ({ type: SUCESSFUL_REQUEST });
+export const failedRequest = (error) => ({ type: FAIL_REQUEST, error });
+export const saveRecipes = (recipes) => ({ type: SAVE_RECIPES, recipes });
+export const saveCategories = (categories) => ({ type: SAVE_CATEGORIES, categories });
+
+export const fetchApi = (url) => (
+  async (dispatch) => {
     dispatch(startRequest());
     try {
       const response = await fetch(url);
       const data = await response.json();
-      dispatch(successfulRequest(data));
+      dispatch(successfulRequest());
+      if (url.includes('list')) {
+        dispatch(saveCategories(data));
+      } else {
+        dispatch(saveRecipes(data));
+      }
     } catch (error) {
       console.log(error);
       dispatch(failedRequest(error));
     }
-  };
-}
+  }
+);
+
+export const FILTER_CATEGORY = 'FILTER_CATEGORY';
+export const filterCategory = (category) => ({ type: FILTER_CATEGORY, category });

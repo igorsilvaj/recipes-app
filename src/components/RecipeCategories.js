@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -8,26 +8,18 @@ import { fetchApi, filterCategory } from '../redux/actions';
 function RecipeCategories(props) {
   const { getCategories, categories, setCategory } = props;
   const history = useHistory();
-  const firstMount = useRef(true);
   const { pathname } = history.location;
   const path = pathname.split('/')[1];
   const maxCategories = 5;
 
   useEffect(() => {
-    // Caso seja a primeira montagem do componente
-    // executa o que está dentro do if
-    if (firstMount.current) {
-      if (path.includes('meals')) {
-        getCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
-      }
-      if (path.includes('drinks')) {
-        getCategories('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
-      }
-    } else {
-      // seta para false após a primeira montagem
-      firstMount.current = false;
+    if (path.includes('meals')) {
+      getCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
     }
-  }, []);
+    if (path.includes('drinks')) {
+      getCategories('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    }
+  }, [path]);
 
   const handleClick = ({ target }) => {
     const { name } = target;

@@ -67,7 +67,7 @@ function Recipes(props) {
         filteredRecipes
           ? (
             <div>
-              <RecipeCategories />
+              <RecipeCategories key={ `actual-${path}` } />
               <div className="cardsContainer">
                 {filteredRecipes.map((e, index) => (
                   index < maxRecipeCards && (

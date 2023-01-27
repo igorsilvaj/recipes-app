@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
-import SearchBar from '../components/SearchBar';
 import { fetchApi } from '../redux/actions';
 import RecipeCategories from '../components/RecipeCategories';
 import Header from '../components/Header';
@@ -65,21 +64,25 @@ function Recipes(props) {
       <br />
       <div>
         {
-        filteredRecipes
-          ? (
-            <div>
-              <RecipeCategories key={ `actual-${path}` } />
-              <div className="cardsContainer">
-                {filteredRecipes.map((e, index) => (
-                  index < maxRecipeCards && (
-                    <RecipeCard key={ `recipe-${index}` } recipe={ e } index={ index } />
-                  )
-                ))}
+          filteredRecipes
+            ? (
+              <div>
+                <RecipeCategories key={ `actual-${path}` } />
+                <div className="cardsContainer">
+                  {filteredRecipes.map((e, index) => (
+                    index < maxRecipeCards && (
+                      <RecipeCard
+                        key={ `recipe-${index}` }
+                        recipe={ e }
+                        index={ index }
+                      />
+                    )
+                  ))}
+                </div>
               </div>
-            </div>
-          )
-          : (<div />)
-      }
+            )
+            : (<div />)
+        }
       </div>
       <Footer />
     </>

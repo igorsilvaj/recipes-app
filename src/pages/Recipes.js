@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
 
@@ -32,6 +33,7 @@ function Recipes(props) {
             : (<div />)
         }
       </div>
+      <Footer />
     </>
   );
 }

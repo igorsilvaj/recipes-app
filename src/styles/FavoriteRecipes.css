@@ -1,0 +1,112 @@
+.headerFavorite {
+  align-items: center;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+}
+
+.favoriteHeaderImg {
+  height: 38.69px;
+  margin-bottom: 10px;
+  width: 38.69px;
+}
+
+.favoriteHeaderText {
+  color: rgb(65, 25, 127);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 900;
+  height: 21px;
+  letter-spacing: 0.105em;
+  line-height: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 227px;
+}
+
+.favoriteCategories {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  width: 100%;
+}
+
+.favoriteCategoryBtn {
+  background-color: transparent;
+  border: 1.81px solid rgb(252, 196, 54);
+  border-radius: 50%;
+  box-sizing: border-box;
+  height: 66px;
+  margin-top: 20px;
+  position: relative;
+  width: 66px;
+}
+
+.allTxt {
+  bottom: 0;
+  color: rgb(121, 125, 134);
+  left: 25px;
+  position: absolute;
+  transform: translateY(20px);
+}
+
+.foodTxt {
+  bottom: 0;
+  color: rgb(121, 125, 134);
+  left: 18px;
+  position: absolute;
+  transform: translateY(20px);
+}
+
+.drinksTxt {
+  bottom: 0;
+  color: rgb(121, 125, 134);
+  left: 15px;
+  position: absolute;
+  transform: translateY(20px);
+}
+
+.allImg {
+  background-image: url('../images/fast_food_outline.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.foodImg {
+  background-image: url('../images/icone-prato.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 60%;
+}
+
+.drinksImg {
+  background-image: url('../images/icone-bebida.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.favoritesDisplay {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.favoriteDisplay {
+  background: white;
+  border: 0.518px solid rgb(177, 177, 177);
+  border-radius: 5px;
+  display: flex;
+  flex-flow: row wrap;
+  height: 135px;
+  margin: 0 auto;
+  width: 318px;
+}
+
+.favoriteImg {
+  background-color: red;
+  border-radius: 5px 0px 0px 5px;
+  height: 134.85px;
+  width: 163.35px;
+}

@@ -7,7 +7,7 @@
   height: 52px;
   justify-content: space-between;
   position: fixed;
-  width: 360px;
+  width: 100%;
 }
 
 .btnFooterDrink, .btnFooterMeal {
@@ -18,9 +18,9 @@
 }
 
 .btnFooterDrink {
-  margin-left: 40px;
+  margin-left: 80px;
 }
 
 .btnFooterMeal {
-  margin-right: 40px;
+  margin-right: 80px;
 }

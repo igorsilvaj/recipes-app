@@ -8,6 +8,7 @@ import RecipeCard from '../components/RecipeCard';
 import SearchBar from '../components/SearchBar';
 import { fetchApi } from '../redux/actions';
 import RecipeCategories from '../components/RecipeCategories';
+import Header from '../components/Header';
 
 function Recipes(props) {
   const { getData, data, selectedCategory } = props;
@@ -59,11 +60,11 @@ function Recipes(props) {
   //   && data[path].filter((e) => e.strCategory.includes(selectedCategory));
 
   return (
-    <div>
-      Recipes
-      <button type="button" data-testid="search-top-btn">button</button>
-      <SearchBar />
-      {
+    <>
+      <Header />
+      <br />
+      <div>
+        {
         filteredRecipes
           ? (
             <div>
@@ -79,8 +80,9 @@ function Recipes(props) {
           )
           : (<div />)
       }
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

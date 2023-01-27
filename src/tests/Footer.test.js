@@ -5,6 +5,14 @@ import Profile from '../pages/Profile';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 
 describe('Footer test', () => {
+  const MOCK_LOCALSTORAGE_KEY = 'user';
+  const MOCK_LOCALSTORAGE_EMAIL = 'teste@teste.com';
+
+  const setLocalStorage = (id, data) => {
+    window.localStorage.setItem(id, JSON.stringify(data));
+  };
+  setLocalStorage(MOCK_LOCALSTORAGE_KEY, MOCK_LOCALSTORAGE_EMAIL);
+
   test('Testa se os botões são renderizados na rota /meals', () => {
     const { history: { location: { pathname } } } = renderWithRouterAndRedux(<Profile />, {}, '/profile');
     const buttons = screen.getAllByRole('img');

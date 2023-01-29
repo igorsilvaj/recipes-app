@@ -30,8 +30,6 @@ function RecipeCategories(props) {
     }
   };
 
-  console.log(categories);
-
   return (
     <div className="categoriesContainer">
       <button

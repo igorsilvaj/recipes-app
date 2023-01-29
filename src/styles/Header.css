@@ -104,10 +104,10 @@
   background-image: url('../images/png/yellowProfileIcon.png');
 }
 
-.headerDoneIcon {
+.headerDoneRecipesIcon {
   background-image: url('../images/png/yellowCheckMark.png');
 }
 
-.headerFavoritesIcon {
+.headerFavoriteRecipesIcon {
   background-image: url('../images/png/yellowCircleWithHeart.png');
 }

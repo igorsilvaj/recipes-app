@@ -72,7 +72,7 @@ function Header() {
         </button>
       </div>
       <div className="pageTitle">
-        <div className={ `headerIcon header${renderizeTittle()}Icon` } />
+        <div className={ `headerIcon header${renderizeTittle().replace(' ', '')}Icon` } />
         <div className="headerFrontText" data-testid="page-title">
           {renderizeTittle()}
         </div>

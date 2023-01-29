@@ -57,70 +57,55 @@ describe('Testes do componente SearchBar na rota "/meals"', () => {
     userEvent.click(lblFirstLetter);
     const btnSearch = screen.getByRole('button', { name: /search/i });
     userEvent.click(btnSearch);
-    screen.debug();
   });
 
-  // it('Deve disparar um alert caso não encontre receitas', async () => {
-  //   const inputSearch = screen.getByRole('textbox');
-  //   expect(inputSearch).toBeInTheDocument();
-  //   userEvent.type(inputSearch, 'xablau');
-  //   const lblName = screen.getByText(/name/i);
-  //   userEvent.click(lblName);
-  //   const btnSearch = screen.getByRole('button', { name: /search/i });
-  //   userEvent.click(btnSearch);
-  //   await waitFor(() => expect(global.alert).toBeCalled());
-  // });
+  it('Deve disparar um alert caso não encontre receitas', async () => {
+    const inputSearch = screen.getByRole('textbox');
+    expect(inputSearch).toBeInTheDocument();
+    userEvent.type(inputSearch, 'xablau');
+    const lblName = screen.getByText(/name/i);
+    userEvent.click(lblName);
+    const btnSearch = screen.getByRole('button', { name: /search/i });
+    userEvent.click(btnSearch);
+    await waitFor(() => expect(global.alert).toBeCalled());
+  });
 });
 
-// describe('Testes do componente SearchBar na rota "/drinks"', () => {
-//   beforeEach(() => {
-//     jest.spyOn(global, 'fetch');
-//     global.fetch.mockResolvedValue({
-//       json: jest.fn().mockResolvedValue({}),
-//     });
-
-//     renderWithRouterAndRedux(<App />, {}, '/drinks');
-//     const btnEnableSearch = screen.getByTestId(searchTopBtn);
-//     expect(btnEnableSearch).toBeVisible();
-//     userEvent.click(btnEnableSearch);
-//   });
-//   it('Deve ser possivel buscar por ingrediente', async () => {
-//     const inputSearch = screen.getByRole('textbox');
-//     expect(inputSearch).toBeInTheDocument();
-//     userEvent.type(inputSearch, 'lemon');
-//     const lblIngredient = screen.getByText(/ingredient/i);
-//     userEvent.click(lblIngredient);
-//     const btnSearch = screen.getByRole('button', { name: /search/i });
-//     userEvent.click(btnSearch);
-//     await act(() => {
-//       expect(global.fetch).toBeCalled();
-//     });
-//   });
-//   it('Deve ser possivel buscar por name', async () => {
-//     const inputSearch = screen.getByRole('textbox');
-//     expect(inputSearch).toBeInTheDocument();
-//     userEvent.type(inputSearch, 'orange');
-//     const lblName = screen.getByText(/name/i);
-//     userEvent.click(lblName);
-//     const btnSearch = screen.getByRole('button', { name: /search/i });
-//     userEvent.click(btnSearch);
-//     await act(() => {
-//       expect(global.fetch).toBeCalled();
-//     });
-//   });
-//   it('Deve ser possivel buscar por first letter', async () => {
-//     const inputSearch = screen.getByRole('textbox');
-//     expect(inputSearch).toBeInTheDocument();
-//     userEvent.type(inputSearch, 'F');
-//     const lblFirstLetter = screen.getByText(/first letter/i);
-//     userEvent.click(lblFirstLetter);
-//     const btnSearch = screen.getByRole('button', { name: /search/i });
-//     userEvent.click(btnSearch);
-//     await act(() => {
-//       expect(global.fetch).toBeCalled();
-//     });
-//   });
-// });
+describe('Testes do componente SearchBar na rota "/drinks"', () => {
+  beforeEach(() => {
+    renderWithRouterAndRedux(<App />, {}, '/drinks');
+    const btnEnableSearch = screen.getByTestId(searchTopBtn);
+    expect(btnEnableSearch).toBeVisible();
+    userEvent.click(btnEnableSearch);
+  });
+  it('Deve ser possivel buscar por ingrediente', async () => {
+    const inputSearch = screen.getByRole('textbox');
+    expect(inputSearch).toBeInTheDocument();
+    userEvent.type(inputSearch, 'lemon');
+    const lblIngredient = screen.getByText(/ingredient/i);
+    userEvent.click(lblIngredient);
+    const btnSearch = screen.getByRole('button', { name: /search/i });
+    userEvent.click(btnSearch);
+  });
+  it('Deve ser possivel buscar por name', async () => {
+    const inputSearch = screen.getByRole('textbox');
+    expect(inputSearch).toBeInTheDocument();
+    userEvent.type(inputSearch, 'orange');
+    const lblName = screen.getByText(/name/i);
+    userEvent.click(lblName);
+    const btnSearch = screen.getByRole('button', { name: /search/i });
+    userEvent.click(btnSearch);
+  });
+  it('Deve ser possivel buscar por first letter', async () => {
+    const inputSearch = screen.getByRole('textbox');
+    expect(inputSearch).toBeInTheDocument();
+    userEvent.type(inputSearch, 'F');
+    const lblFirstLetter = screen.getByText(/first letter/i);
+    userEvent.click(lblFirstLetter);
+    const btnSearch = screen.getByRole('button', { name: /search/i });
+    userEvent.click(btnSearch);
+  });
+});
 
 describe('Testes de rota iniciando em /meals', () => {
   it('Deve redirecionar caso encontre apenas 1 receita', async () => {

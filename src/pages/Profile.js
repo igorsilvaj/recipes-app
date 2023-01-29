@@ -8,7 +8,9 @@ function Profile() {
   // -- Inicialmente usei o Redux para pegar o e-mail do usuário.
   // -- Porem o requisito pede que seja do localStorage.
   const history = useHistory();
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  // const { email } = JSON.parse(localStorage.getItem('user'));
+  const storage = localStorage.getItem('user');
+  const { email } = storage !== null && (JSON.parse(storage));
 
   const redirectToDoneRecipes = () => {
     history.push('/done-recipes');

@@ -1,20 +1,11 @@
 import React from 'react';
 import Header from '../components/Header';
-import yellowCircleWithHeart from '../images/yellowCircleWithHeart.png';
 
 export default function FavoriteRecipes() {
   return (
     <div>
       <Header />
       <br />
-      <div className="headerFavorite" data-testid="page-title">
-        <img
-          className="favoriteHeaderImg"
-          src={ yellowCircleWithHeart }
-          alt="checkMark"
-        />
-        <p className="favoriteHeaderText">FAVORITES</p>
-      </div>
       <div className="favoriteCategories">
         <button
           className="favoriteCategoryBtn allImg"

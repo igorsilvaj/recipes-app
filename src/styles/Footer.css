@@ -13,8 +13,8 @@
 .btnFooterDrink, .btnFooterMeal {
   background-color: transparent;
   border: none;
-  filter: invert(80%) sepia(72%) saturate(1169%)
-    hue-rotate(331deg) brightness(108%) contrast(98%);
+  filter: invert(96%) sepia(58%) saturate(5143%)
+    hue-rotate(325deg) brightness(100%) contrast(98%);
 }
 
 .btnFooterDrink {

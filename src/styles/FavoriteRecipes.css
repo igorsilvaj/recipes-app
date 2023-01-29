@@ -1,29 +1,3 @@
-.headerFavorite {
-  align-items: center;
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-}
-
-.favoriteHeaderImg {
-  height: 38.69px;
-  margin-bottom: 10px;
-  width: 38.69px;
-}
-
-.favoriteHeaderText {
-  color: rgb(65, 25, 127);
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 900;
-  height: 21px;
-  letter-spacing: 0.105em;
-  line-height: 20px;
-  text-align: center;
-  text-transform: uppercase;
-  width: 227px;
-}
-
 .favoriteCategories {
   display: flex;
   gap: 40px;
@@ -67,20 +41,20 @@
 }
 
 .allImg {
-  background-image: url('../images/fast_food_outline.png');
+  background-image: url('../images/png/fast_food_outline.png');
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .foodImg {
-  background-image: url('../images/icone-prato.png');
+  background-image: url('../images/png/mealIcon.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 60%;
 }
 
 .drinksImg {
-  background-image: url('../images/icone-bebida.png');
+  background-image: url('../images/png/drinkIcon.png');
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -106,7 +80,7 @@
 
 .favoriteImg {
   background-color: red;
-  border-radius: 5px 0px 0px 5px;
+  border-radius: 5px 0 0 5px;
   height: 134.85px;
   width: 163.35px;
 }

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-import yellowCircleWithHeart from '../images/yellowCircleWithHeart.png';
+import searchIcon from '../images/searchIcon.svg';
+import profileIcon from '../images/profileIcon.svg';
 
 function Header() {
   const history = useHistory();
@@ -28,10 +27,10 @@ function Header() {
       pageTittle = 'Profile';
       return pageTittle;
     } if (location.pathname === '/done-recipes') {
-      pageTittle = 'Done';
+      pageTittle = 'Done Recipes';
       return pageTittle;
     } if (location.pathname === '/favorite-recipes') {
-      pageTittle = 'Favorites';
+      pageTittle = 'Favorite Recipes';
       return pageTittle;
     }
   };
@@ -44,37 +43,38 @@ function Header() {
       setHideBar(true);
     }
   };
+
   return (
     <div className="headerContainer">
       <div className="headerTop">
-        <button
-          onClick={ redirectToProfile }
-          type="button"
-        >
-          <img alt="profileIcon" src={ profileIcon } data-testid="profile-top-btn" />
-        </button>
+        <div className="iconRecipesApp" />
+        <div className="logoRecipesApp" />
         { (location.pathname !== '/profile'
               && location.pathname !== '/done-recipes'
               && location.pathname !== '/favorite-recipes')
           && (
             <button
               type="button"
+              className="headerSearch"
               onClick={ openSearchBar }
             >
               <img alt="serachBarIcon" src={ searchIcon } data-testid="search-top-btn" />
             </button>
           )}
+        <button
+          type="button"
+          className="headerProfile"
+          onClick={ redirectToProfile }
+        >
+          <img alt="profileIcon" src={ profileIcon } data-testid="profile-top-btn" />
+        </button>
       </div>
-      <img
-        className="favoriteHeaderImg"
-        src={ yellowCircleWithHeart }
-        alt="checkMark"
-      />
-      <h2 data-testid="page-title">
-        <div className="favoriteHeaderText">
+      <div className="pageTitle">
+        <div className={ `headerIcon header${renderizeTittle()}Icon` } />
+        <div className="headerFrontText" data-testid="page-title">
           {renderizeTittle()}
         </div>
-      </h2>
+      </div>
       {
         hideBar && <SearchBar />
       }

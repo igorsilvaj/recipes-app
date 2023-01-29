@@ -6,6 +6,8 @@ import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 
 function Header() {
+  localStorage.getItem('user');
+
   const history = useHistory();
   const location = useLocation();
   const [hideBar, setHideBar] = useState(false);

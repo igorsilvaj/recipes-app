@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import FavoriteRecipesFilters from '../components/FavoriteRecipesFilters';
 import favoriteIcon from '../images/blackHeartIcon.svg';
@@ -8,6 +9,10 @@ import shareIcon from '../images/shareIcon.svg';
 export default function FavoriteRecipes() {
   const [favorites, setFavorites] = useState(null);
   const [alerta, setAlerta] = useState(false);
+  const [filter, setFilter] = useState('');
+
+  const filteredFavorites = favorites !== null
+    && favorites.filter((e) => e.type.includes(filter));
 
   useEffect(() => {
     const getLocalStorage = localStorage.getItem('favoriteRecipes');
@@ -35,6 +40,15 @@ export default function FavoriteRecipes() {
         'favoriteRecipes',
         JSON.stringify(favorites.filter((e) => e.id !== favoriteTarget.id)),
       );
+    }
+    if (name.includes('all')) {
+      setFilter('');
+    }
+    if (name.includes('food')) {
+      setFilter('meal');
+    }
+    if (name.includes('drinks')) {
+      setFilter('drink');
     }
   };
 
@@ -85,17 +99,20 @@ export default function FavoriteRecipes() {
         {
           favorites
           && (
-            favorites.map((e, index) => (
+            filteredFavorites.map((e, index) => (
               <div key={ `favorite-${index}` } className="favoriteDisplay">
-                <img
-                  src={ e.image }
-                  alt={ `${e.name}` }
-                  className="favoriteImg"
-                  data-testid={ `${index}-horizontal-image` }
-                />
+                <Link to={ `/${e.type}s/${e.id}` }>
+                  <img
+                    src={ e.image }
+                    alt={ `${e.name}` }
+                    className="favoriteImg"
+                    data-testid={ `${index}-horizontal-image` }
+                  />
+                </Link>
                 <div className="favoriteInfos">
-                  <p data-testid={ `${index}-horizontal-name` }>{e.name}</p>
-
+                  <Link to={ `/${e.type}s/${e.id}` }>
+                    <p data-testid={ `${index}-horizontal-name` }>{e.name}</p>
+                  </Link>
                   <p data-testid={ `${index}-horizontal-top-text` }>
                     { e.nationality || e.alcoholicOrNot
                       ? `${e.nationality}${e.alcoholicOrNot} - ${e.category}`

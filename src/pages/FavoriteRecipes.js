@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import FavoriteRecipesFilters from '../components/FavoriteRecipesFilters';
+import favoriteIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 export default function FavoriteRecipes() {
   const [favorites, setFavorites] = useState(null);
@@ -67,11 +69,21 @@ export default function FavoriteRecipes() {
                 />
                 <div className="favoriteInfos">
                   <p data-testid={ `${index}-horizontal-name` }>{e.name}</p>
-                  <p data-testid={ `${index}-horizontal-top-text` }>{e.category}</p>
-                  <button data-testid={ `${index}-horizontal-share-btn` }>Share</button>
-                  <button data-testid={ `${index}-horizontal-favorite-btn` }>
-                    Favorite
-                  </button>
+                  <p data-testid={ `${index}-horizontal-top-text` }>
+                    { e.nationality
+                      ? `${e.nationality} - ${e.category}`
+                      : e.category}
+                  </p>
+                  <img
+                    data-testid={ `${index}-horizontal-share-btn` }
+                    src={ shareIcon }
+                    alt="Share Icon"
+                  />
+                  <img
+                    data-testid={ `${index}-horizontal-favorite-btn` }
+                    src={ favoriteIcon }
+                    alt="Favorite Icon"
+                  />
                 </div>
               </div>
             ))

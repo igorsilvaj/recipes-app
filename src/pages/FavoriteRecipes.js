@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import FavoriteRecipesFilters from '../components/FavoriteRecipesFilters';
@@ -26,7 +25,8 @@ export default function FavoriteRecipes() {
     const favoriteTarget = favorites[name.split('-')[0]];
     const goodTime = 3000;
     if (name.includes('share')) {
-      clipboardCopy(
+      console.log(window.location);
+      navigator.clipboard.writeText(
         `${window.location.origin}/${favoriteTarget.type}s/${favoriteTarget.id}`,
       );
       setAlerta(true);
@@ -52,44 +52,8 @@ export default function FavoriteRecipes() {
     }
   };
 
-  const mockLocalStorage = () => {
-    localStorage.setItem(
-      'favoriteRecipes',
-      JSON.stringify(
-        [{
-          id: '52977',
-          type: 'meal',
-          nationality: '',
-          category: 'Side',
-          alcoholicOrNot: '',
-          name: 'Corba',
-          image: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
-        },
-        {
-          id: '52771',
-          type: 'meal',
-          nationality: 'Italian',
-          category: 'Vegetarian',
-          alcoholicOrNot: '',
-          name: 'Spicy Arrabiata Penne',
-          image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-        },
-        {
-          id: '178319',
-          type: 'drink',
-          nationality: '',
-          category: 'Cocktail',
-          alcoholicOrNot: 'Alcoholic',
-          name: 'Aquamarine',
-          image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-        }],
-      ),
-    );
-  };
-
   return (
     <div>
-      <button type="button" onClick={ mockLocalStorage }>MakeTestTestable</button>
       <Header />
       <FavoriteRecipesFilters handleClick={ handleClick } />
       <div className="favoritesDisplay">

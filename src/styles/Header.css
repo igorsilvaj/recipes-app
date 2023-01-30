@@ -1,0 +1,113 @@
+.headerContainer {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.headerTop {
+  align-items: center;
+  background-color: rgb(252, 220, 54);
+  display: flex;
+  flex-flow: row wrap;
+  height: 52px;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.iconRecipesApp {
+  background-image: url('../images/png/recipesAppIcon.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 39.28px;
+  margin-left: 26px;
+  width: 42.6px;
+}
+
+.logoRecipesApp {
+  background-image: url('../images/png/logoRecipesApp.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 16.97px;
+  margin-left: 20px;
+  margin-top: 5px;
+  width: 109.13px;
+}
+
+.headerSearch, .headerProfile {
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: none;
+  color: transparent;
+}
+
+.headerSearch {
+  filter: invert(12%) sepia(56%) saturate(7337%)
+    hue-rotate(265deg) brightness(62%) contrast(93%);
+  height: 26.85px;
+  position: absolute;
+  right: 70px;
+  width: 26.85px;
+}
+
+.headerProfile {
+  filter: invert(12%) sepia(56%) saturate(7337%)
+    hue-rotate(265deg) brightness(62%) contrast(93%);
+  height: 28.71px;
+  position: absolute;
+  right: 20px;
+  width: 28.71px;
+}
+
+.pageTitle {
+  align-items: center;
+  display: flex;
+  flex-flow: column wrap;
+  gap: 10px;
+  height: 90px;
+  justify-content: center;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.headerFrontText {
+  color: rgb(65, 25, 127);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 900;
+  height: 21px;
+  letter-spacing: 0.105em;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+
+.headerIcon {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 38.69px;
+  margin-right: 3px;
+  width: 39.43px;
+}
+
+.headerMealsIcon {
+  background-image: url('../images/png/mealIcon.png');
+}
+
+.headerDrinksIcon {
+  background-image: url('../images/png/drinkIcon.png');
+  background-size: 65%;
+}
+
+.headerProfileIcon {
+  background-image: url('../images/png/yellowProfileIcon.png');
+}
+
+.headerDoneRecipesIcon {
+  background-image: url('../images/png/yellowCheckMark.png');
+}
+
+.headerFavoriteRecipesIcon {
+  background-image: url('../images/png/yellowCircleWithHeart.png');
+}

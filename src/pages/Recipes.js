@@ -55,13 +55,9 @@ function Recipes(props) {
     firstMount.current = false;
   }, [selectedCategory]);
 
-  // const filteredRecipes = data && data[path]
-  //   && data[path].filter((e) => e.strCategory.includes(selectedCategory));
-
   return (
     <>
       <Header />
-      <br />
       <div>
         {
           filteredRecipes

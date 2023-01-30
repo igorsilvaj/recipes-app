@@ -36,26 +36,27 @@ function RecipeCategories(props) {
         type="button"
         name="All"
         data-testid="All-category-filter"
-        className="recipeCategory"
+        className={ `recipeCategory all${path}` }
         onClick={ (e) => handleClick(e) }
       >
-        All
+        <div className="txtCategory">All</div>
       </button>
       {
         categories && categories[path]
           ? (
             categories[path].map((category, index) => (
               index < maxCategories && (
-                <button
-                  type="button"
-                  name={ category.strCategory }
-                  data-testid={ `${category.strCategory}-category-filter` }
-                  key={ `category-${index}` }
-                  className="recipeCategory"
-                  onClick={ (e) => handleClick(e) }
-                >
-                  {category.strCategory}
-                </button>
+                <div key={ `category-${index}` }>
+                  <button
+                    type="button"
+                    name={ category.strCategory }
+                    data-testid={ `${category.strCategory}-category-filter` }
+                    className={ `recipeCategory ${category.strCategory.replace(/\s/g, '').replace('/', '')}` }
+                    onClick={ (e) => handleClick(e) }
+                  >
+                    <span className="txtCategory">{category.strCategory}</span>
+                  </button>
+                </div>
               )
             ))
           )

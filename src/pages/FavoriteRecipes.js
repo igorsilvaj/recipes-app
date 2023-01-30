@@ -70,8 +70,8 @@ export default function FavoriteRecipes() {
                 <div className="favoriteInfos">
                   <p data-testid={ `${index}-horizontal-name` }>{e.name}</p>
                   <p data-testid={ `${index}-horizontal-top-text` }>
-                    { e.nationality
-                      ? `${e.nationality} - ${e.category}`
+                    { e.nationality || e.alcoholicOrNot
+                      ? `${e.nationality}${e.alcoholicOrNot} - ${e.category}`
                       : e.category}
                   </p>
                   <img

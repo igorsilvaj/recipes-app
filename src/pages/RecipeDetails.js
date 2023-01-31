@@ -27,7 +27,7 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
   const isinProgressRecipe = inProgressRecipes && !!inProgressRecipes[path][id];
 
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const isFavoriteRecipe = favoriteRecipes && !!favoriteRecipes.find((e) => e.id === id);
+  const [favorite, setFavorite] = useState(favoriteRecipes && !!favoriteRecipes.find((e) => e.id === id));
   // const inProgressRecipesMock = {
   //   drinks: {
   //     15997: ['lista-de-ingredientes-utilizados'],
@@ -92,6 +92,7 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
   //   localStorage.setItem('doneRecipes', JSON.stringify(doneRecipesMock));
   // };
   const [alerta, setAlerta] = useState(false);
+
   useEffect(() => {
     if (pathname.includes('/meals')) {
       getData(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -151,12 +152,15 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
         if (local.find((e) => e.id === id)) {
           const filtered = local.filter((e) => e.id !== id);
           localStorage.setItem('favoriteRecipes', JSON.stringify(filtered));
+          setFavorite(false);
         } else {
           local.push(favoriteRecipe);
           localStorage.setItem('favoriteRecipes', JSON.stringify(local));
+          setFavorite(true);
         }
       } else {
         localStorage.setItem('favoriteRecipes', JSON.stringify([favoriteRecipe]));
+        setFavorite(true);
       }
     }
   };
@@ -196,7 +200,7 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
                 <img
                   name="favorite"
                   data-testid="favorite-btn"
-                  src={ isFavoriteRecipe ? favoritedIcon : favoriteIcon }
+                  src={ favorite ? favoritedIcon : favoriteIcon }
                   alt="Favorite Icon"
                 />
               </button>

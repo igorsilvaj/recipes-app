@@ -5,7 +5,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchApi, fetchApi2 } from '../redux/actions';
 import Recommendations from '../components/RecommendationsCard';
-import favoriteIcon from '../images/blackHeartIcon.svg';
+import favoriteIcon from '../images/whiteHeartIcon.svg';
+import favoritedIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
 function RecipeDetails({ getData, data, getData2, recommendations }) {
@@ -24,6 +25,9 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
 
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const isinProgressRecipe = inProgressRecipes && !!inProgressRecipes[path][id];
+
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const isFavoriteRecipe = favoriteRecipes && !!favoriteRecipes.find((e) => e.id === id);
   // const inProgressRecipesMock = {
   //   drinks: {
   //     15997: ['lista-de-ingredientes-utilizados'],
@@ -144,8 +148,13 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
         type: source.toLowerCase(),
       };
       if (local) {
-        local.push(favoriteRecipe);
-        localStorage.setItem('favoriteRecipes', JSON.stringify(local));
+        if (local.find((e) => e.id === id)) {
+          const filtered = local.filter((e) => e.id !== id);
+          localStorage.setItem('favoriteRecipes', JSON.stringify(filtered));
+        } else {
+          local.push(favoriteRecipe);
+          localStorage.setItem('favoriteRecipes', JSON.stringify(local));
+        }
       } else {
         localStorage.setItem('favoriteRecipes', JSON.stringify([favoriteRecipe]));
       }
@@ -187,7 +196,7 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
                 <img
                   name="favorite"
                   data-testid="favorite-btn"
-                  src={ favoriteIcon }
+                  src={ isFavoriteRecipe ? favoritedIcon : favoriteIcon }
                   alt="Favorite Icon"
                 />
               </button>

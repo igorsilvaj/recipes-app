@@ -1,0 +1,87 @@
+.favoriteCategories {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  width: 100%;
+}
+
+.favoriteCategoryBtn {
+  background-color: transparent;
+  border: 2px solid rgb(252, 196, 54);
+  border-radius: 50%;
+  box-sizing: border-box;
+  height: 66px;
+  margin-top: 20px;
+  position: relative;
+  width: 66px;
+}
+
+.allImg {
+  background-image: url('../images/png/fast_food_outline.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.foodImg {
+  background-image: url('../images/png/mealIcon.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 60%;
+}
+
+.drinksImg {
+  background-image: url('../images/png/drinkIcon.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.favoritesDisplay {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.txtFilterFavorites {
+  align-items: flex-start;
+  color: rgb(121, 125, 134);
+  display: flex;
+  flex-flow: row wrap;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  justify-content: center;
+  left: 15px;
+  line-height: 9px;
+  text-align: center;
+  transform: translateY(50px);
+}
+
+.favoriteDisplay {
+  background: white;
+  border: 0.518px solid rgb(177, 177, 177);
+  border-radius: 5px;
+  display: flex;
+  flex-flow: row wrap;
+  height: 135px;
+  margin: 0 auto;
+  width: 318px;
+}
+
+.favoriteImg {
+  background-color: red;
+  border-radius: 5px 0 0 5px;
+  height: 134.85px;
+  margin: 0;
+  width: 163.35px;
+}
+
+.favoriteInfos {
+  align-items: center;
+  border: 1px solid black;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 152.5px;
+}

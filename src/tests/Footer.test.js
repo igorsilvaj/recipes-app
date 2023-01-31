@@ -5,7 +5,15 @@ import Profile from '../pages/Profile';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 
 describe('Footer test', () => {
-  test('Verifica se os botões são renderizados e rota /meals', () => {
+  const MOCK_LOCALSTORAGE_KEY = 'user';
+  const MOCK_LOCALSTORAGE_EMAIL = 'teste@teste.com';
+
+  const setLocalStorage = (id, data) => {
+    window.localStorage.setItem(id, JSON.stringify(data));
+  };
+  setLocalStorage(MOCK_LOCALSTORAGE_KEY, MOCK_LOCALSTORAGE_EMAIL);
+
+  test('Testa se os botões são renderizados na rota /meals', () => {
     const { history: { location: { pathname } } } = renderWithRouterAndRedux(<Profile />, {}, '/profile');
     const buttons = screen.getAllByRole('img');
     expect(buttons[0]).toBeInTheDocument();
@@ -16,7 +24,7 @@ describe('Footer test', () => {
     });
   });
 
-  test('Verifica se os botões são renderizados e rota /drink', () => {
+  test('Testa se os botões são renderizados na rota /drink', () => {
     const { history: { location: { pathname } } } = renderWithRouterAndRedux(<Profile />, {}, '/profile');
     const buttons = screen.getAllByRole('img');
     expect(buttons[0]).toBeInTheDocument();
@@ -24,6 +32,26 @@ describe('Footer test', () => {
     userEvent.click(buttons[1]);
     waitFor(() => {
       expect(pathname).toBe('/drink');
+    });
+  });
+
+  it('Testa se o botão de "Drinks" leva para a rota esperada', () => {
+    const { history: { location: { pathname } } } = renderWithRouterAndRedux(<Profile />, {}, '/profile');
+    const drink = screen.getByTestId('drink-btn');
+
+    userEvent.click(drink);
+    waitFor(() => {
+      expect(pathname).toBe('/drink');
+    });
+  });
+
+  it('Testa se o botão de "Meals" leva para a rota esperada', () => {
+    const { history: { location: { pathname } } } = renderWithRouterAndRedux(<Profile />, {}, '/profile');
+    const meals = screen.getByTestId('meals-btn');
+
+    userEvent.click(meals);
+    waitFor(() => {
+      expect(pathname).toBe('/meals');
     });
   });
 });

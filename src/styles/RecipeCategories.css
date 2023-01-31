@@ -2,14 +2,105 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
-  margin: 10px 0;
+  margin: 10px auto;
   width: 360px;
 }
 
 .recipeCategory {
-  border: 1.81px solid rgb(252, 196, 54);
+  background-color: white;
+  border: 2px solid rgb(252, 196, 54);
   border-radius: 50%;
   box-sizing: border-box;
+  color: rgb(121, 125, 134);
   height: 45.28px;
+  margin-bottom: 15px;
+  position: relative;
   width: 45.28px;
+}
+
+.txtCategory {
+  align-items: flex-start;
+  display: flex;
+  flex-flow: row wrap;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 300;
+  justify-content: center;
+  left: 15px;
+  line-height: 9px;
+  text-align: center;
+  transform: translateY(35px);
+}
+
+.alldrinks {
+  background-image: url('../images/png/drinkIcon.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.OrdinaryDrink {
+  background-image: url('../images/png/ordinaryDrink.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.Cocktail {
+  background-image: url('../images/png/cocktail.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.Shake {
+  background-image: url('../images/png/shake.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.OtherUnknown {
+  background-image: url('../images/png/other.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.Cocoa {
+  background-image: url('../images/png/cocoa.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.allmeals {
+  background-image: url('../images/png/mealIcon.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80%;
+}
+
+.Beef {
+  background-image: url('../images/png/cowface.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.Breakfast {
+  background-image: url('../images/png/breakfast.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.Chicken {
+  background-image: url('../images/png/chickenface.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.Dessert {
+  background-image: url('../images/png/dessert.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.Goat {
+  background-image: url('../images/png/goatface.png');
+  background-position: center;
+  background-repeat: no-repeat;
 }

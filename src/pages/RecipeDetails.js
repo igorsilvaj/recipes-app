@@ -2,26 +2,35 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { fetchApi } from '../redux/actions';
+import { fetchApi, fetchApi2 } from '../redux/actions';
+import Recommendations from '../components/RecommendationsCard';
 
 function RecipeDetails(props) {
-  const { getData, data } = props;
+  const { getData, data, getData2, recommendations } = props;
   const history = useHistory();
   const { pathname } = history.location;
   const path = pathname.split('/')[1];
   const { id } = useParams();
   const source = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1);
+  const matcher = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)
+    === 'Meal' ? 'Drink' : 'Meal';
+  const matcher2 = `${matcher.toLocaleLowerCase()}s`;
 
   useEffect(() => {
     if (pathname.includes('/meals')) {
+      console.log('entrou meals');
       getData(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+      getData2('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     }
     if (pathname.includes('/drinks')) {
+      console.log('entrou drinks');
       getData(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+      getData2('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     }
-  }, []);
+  }, [id]);
 
-  const ingredients = data && Object.entries(data[path][0]).filter((ingredient) => (
+  const ingredients = data && data !== undefined
+  && Object.entries(data[path][0]).filter((ingredient) => (
     ingredient[0].includes('strIngredient'))).map((e) => e[1]).filter(
     (e) => (e !== '' && e !== null),
   );
@@ -70,28 +79,38 @@ function RecipeDetails(props) {
               </p>
               {
                 ingredients.map((e, index) => (
-                  <p key={ `ingredient-${index}` }>
+                  <p key={`ingredient-${index}`}>
                     •
                     <span
-                      data-testid={ `${index}-ingredient-name-and-measure` }
+                      data-testid={`${index}-ingredient-name-and-measure`}
                     >
                       {`${measure[index]} ${e}`}
                     </span>
                   </p>
                 ))
               }
-              <span>{}</span>
+              <span>{ }</span>
               <span data-testid="instructions">{data[path][0].strInstructions}</span>
               <iframe
                 width="560"
                 height="315"
-                src={ video }
+                src={video}
                 title="YouTube video player"
-                allow={ `accelerometer;
+                allow={`accelerometer;
 autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share` }
                 allowFullScreen
                 data-testid="video"
               />
+              {recommendations
+                && (
+                  <div>
+                    {recommendations[matcher2]
+                      .map((a, index) => (<Recommendations
+                        key={ a[`ìd${matcher}`] }
+                        recipe={ a }
+                        index={ index }
+                      />))}
+                  </div>)}
             </div>
           )
           : (
@@ -104,10 +123,13 @@ autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-s
 
 const mapDispatchToProps = (dispatch) => ({
   getData: (url) => dispatch(fetchApi(url)),
+  getData2: (url) => dispatch(fetchApi2(url)),
+
 });
 
 const mapStateToProps = (state) => ({
   data: state.apiResponse.data,
+  recommendations: state.apiResponse.recommendations,
 });
 
 RecipeDetails.propTypes = {

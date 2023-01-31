@@ -22,8 +22,7 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
 
   // requisito 30, verificar se receita está em andamento
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  const isinProgressRecipe = inProgressRecipes && !!inProgressRecipes[`${source.toLocaleLowerCase()}s`][id];
-  console.log(isinProgressRecipe);
+  const isinProgressRecipe = inProgressRecipes && !!inProgressRecipes[path][id];
   // const inProgressRecipesMock = {
   //   drinks: {
   //     15997: ['lista-de-ingredientes-utilizados'],
@@ -118,6 +117,10 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
       data[path][0].strVideo.replace('watch?v=', 'embed/'));
   }
 
+  const handleClick = () => {
+    history.push(`/${path}/${id}/in-progress`);
+  };
+
   return (
     <div>
       {/* <button type="button" onClick={ mockStorage }>mock</button> */}
@@ -190,6 +193,7 @@ autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-s
                     type="button"
                     data-testid="start-recipe-btn"
                     className="btnStartRecipe"
+                    onClick={ handleClick }
                   >
                     {isinProgressRecipe
                       ? (

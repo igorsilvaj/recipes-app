@@ -17,12 +17,11 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
     === 'Meal' ? 'Drink' : 'Meal';
   const matcher2 = `${matcher.toLocaleLowerCase()}s`;
   const { id } = useParams();
-  // requisito 29, verificar se receita já foi feita
   const maxRecom = 6;
+
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   const isDoneRecipe = doneRecipes && !!(doneRecipes.find((e) => e.id === id));
 
-  // requisito 30, verificar se receita está em andamento
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const isinProgressRecipe = inProgressRecipes && !!inProgressRecipes[path][id];
   // const inProgressRecipesMock = {
@@ -118,7 +117,6 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
     video = data[path][0].strVideo && (
       data[path][0].strVideo.replace('watch?v=', 'embed/'));
   }
-
   const handleClick = ({ target }) => {
     const { name } = target;
     const goodTime = 3000;
@@ -135,11 +133,22 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
       }, goodTime);
     }
     if (name.includes('favorite')) {
-      setFavorites(favorites.filter((e) => e.id !== favoriteTarget.id));
-      localStorage.setItem(
-        'favoriteRecipes',
-        JSON.stringify(favorites.filter((e) => e.id !== favoriteTarget.id)),
-      );
+      const local = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const favoriteRecipe = {
+        alcoholicOrNot: path === 'drinks' ? data[path][0].strAlcoholic : '',
+        category: data[path][0].strCategory,
+        id,
+        image: data[path][0][`str${source}Thumb`],
+        name: data[path][0][`str${source}`],
+        nationality: path === 'meals' ? data[path][0].strArea : '',
+        type: source.toLowerCase(),
+      };
+      if (local) {
+        local.push(favoriteRecipe);
+        localStorage.setItem('favoriteRecipes', JSON.stringify(local));
+      } else {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([favoriteRecipe]));
+      }
     }
   };
 

@@ -6,19 +6,36 @@ import PropTypes from 'prop-types';
 import { fetchApi, fetchApi2 } from '../redux/actions';
 import Recommendations from '../components/RecommendationsCard';
 
-function RecipeDetails(props) {
-  const { getData, data, getData2, recommendations } = props;
+function RecipeDetails({ getData, data, getData2, recommendations }) {
   const history = useHistory();
   const { pathname } = history.location;
   const path = pathname.split('/')[1];
-  const { id } = useParams();
   const source = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1);
   const matcher = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)
     === 'Meal' ? 'Drink' : 'Meal';
   const matcher2 = `${matcher.toLocaleLowerCase()}s`;
+  const { id } = useParams();
+  // requisito 29, verificar se receita já foi feita
   const maxRecom = 6;
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   const isDoneRecipe = doneRecipes && !!(doneRecipes.find((e) => e.id === id));
+
+  // requisito 30, verificar se receita está em andamento
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const isinProgressRecipe = inProgressRecipes && !!inProgressRecipes[`${source.toLocaleLowerCase()}s`][id];
+  console.log(isinProgressRecipe);
+  // const inProgressRecipesMock = {
+  //   drinks: {
+  //     15997: ['lista-de-ingredientes-utilizados'],
+  //   },
+  //   meals: {
+  //     52977: ['lista-de-ingredientes-utilizados'],
+  //   },
+  // };
+  // const mockStorage = () => {
+  //   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipesMock));
+  // };
+  // mockStorage();
   // console.log(doneRecipes);
   // const doneRecipesMock = [
   //   {
@@ -161,7 +178,7 @@ autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-s
                     {recommendations[matcher2]
                       .map((a, index) => (
                         index < maxRecom && (<Recommendations
-                          key={ a[`ìd${matcher}`] }
+                          key={ `key-${index}` }
                           recipe={ a }
                           index={ index }
                         />)))}
@@ -174,7 +191,16 @@ autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-s
                     data-testid="start-recipe-btn"
                     className="btnStartRecipe"
                   >
-                    Start Recipe
+                    {isinProgressRecipe
+                      ? (
+                        <span>
+                          Continue Recipe
+                        </span>)
+                      : (
+                        <span>
+                          Start Recipe
+                        </span>
+                      )}
                   </button>
                 )
               }

@@ -13,14 +13,12 @@
 
 @import './RecipeCategories.css' ;
 
-<<<<<<< HEAD
 @import './RecipeDetails.css' ;
-=======
+
 @import './Recipes.css' ;
 
 @import './RecipeCard.css' ;
 
 @import './FavoriteRecipes.css' ;
->>>>>>> 228833d5b4f2f2e521a25bf1ae71cd4d04131127
 
 @import './Footer.css' ;

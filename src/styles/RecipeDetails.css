@@ -1,6 +1,14 @@
+/* .recipeDetailsContainer {} */
 .recipeDetailImg {
   border-radius: 0;
   height: 161.85px;
   object-fit: cover;
   width: 362.01px;
+}
+
+.carouselContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 10px;
+  overflow-x: scroll;
 }

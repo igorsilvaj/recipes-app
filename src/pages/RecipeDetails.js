@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -15,6 +16,7 @@ function RecipeDetails(props) {
   const matcher = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)
     === 'Meal' ? 'Drink' : 'Meal';
   const matcher2 = `${matcher.toLocaleLowerCase()}s`;
+  const maxRecom = 6;
 
   useEffect(() => {
     if (pathname.includes('/meals')) {
@@ -53,7 +55,7 @@ function RecipeDetails(props) {
       {
         data
           ? (
-            <div>
+            <div className="recipeDetailsContainer">
               <img
                 src={
                   data[path][0][`str${source}Thumb`]
@@ -79,10 +81,10 @@ function RecipeDetails(props) {
               </p>
               {
                 ingredients.map((e, index) => (
-                  <p key={`ingredient-${index}`}>
+                  <p key={ `ingredient-${index}` }>
                     •
                     <span
-                      data-testid={`${index}-ingredient-name-and-measure`}
+                      data-testid={ `${index}-ingredient-name-and-measure` }
                     >
                       {`${measure[index]} ${e}`}
                     </span>
@@ -92,24 +94,25 @@ function RecipeDetails(props) {
               <span>{ }</span>
               <span data-testid="instructions">{data[path][0].strInstructions}</span>
               <iframe
-                width="560"
+                width="340"
                 height="315"
-                src={video}
+                src={ video }
                 title="YouTube video player"
-                allow={`accelerometer;
+                allow={ `accelerometer;
 autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share` }
                 allowFullScreen
                 data-testid="video"
               />
               {recommendations
                 && (
-                  <div>
+                  <div className="carouselContainer">
                     {recommendations[matcher2]
-                      .map((a, index) => (<Recommendations
-                        key={ a[`ìd${matcher}`] }
-                        recipe={ a }
-                        index={ index }
-                      />))}
+                      .map((a, index) => (
+                        index < maxRecom && (<Recommendations
+                          key={ a[`ìd${matcher}`] }
+                          recipe={ a }
+                          index={ index }
+                        />)))}
                   </div>)}
             </div>
           )

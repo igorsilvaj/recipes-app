@@ -1,28 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import '../styles/RecipeCard.css';
 import { connect } from 'react-redux';
 import { fetchApi, fetchApi2 } from '../redux/actions';
 
 function Recommendations(props) {
-  const { recipe, index, getData, getData2 } = props;
+  const { recipe, index } = props;
   const history = useHistory();
   const { pathname } = history.location;
   const path = pathname.split('/')[1];
   const matcher = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)
    === 'Meal' ? 'Drink' : 'Meal';
-  const { id } = useParams();
 
   const HandleCLick = () => {
     if (pathname.includes('/meals')) {
-      //getData(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-      //getData2('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
       history.push(`/drinks/${recipe.idDrink}`);
     }
     if (pathname.includes('/drinks')) {
-      //getData(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-      //getData2('https://www.themealdb.com/api/json/v1/1/search.php?s=');
       history.push(`/meals/${recipe.idMeal}`);
     }
   };
@@ -32,7 +27,7 @@ function Recommendations(props) {
       onClick={ HandleCLick }
       className="btnGoToDetails"
     >
-      <div className="recipeCard" data-testid={ `${index}-recipe-card` }>
+      <div className="recipeCard" data-testid={ `${index}-recommendation-card` }>
         <img
           src={ recipe[`str${matcher}Thumb`] }
           alt="recipe"
@@ -42,7 +37,7 @@ function Recommendations(props) {
 
         <p className="txtCard">
           <span
-            data-testid={ `${index}-card-name` }
+            data-testid={ `${index}-recommendation-title` }
           >
             {recipe[`str${matcher}`]}
           </span>

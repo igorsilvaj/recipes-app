@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -88,7 +88,7 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
   // const mockStorage = () => {
   //   localStorage.setItem('doneRecipes', JSON.stringify(doneRecipesMock));
   // };
-
+  const [alerta, setAlerta] = useState(false);
   useEffect(() => {
     if (pathname.includes('/meals')) {
       getData(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -119,13 +119,34 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
       data[path][0].strVideo.replace('watch?v=', 'embed/'));
   }
 
-  const handleClick = () => {
-    history.push(`/${path}/${id}/in-progress`);
+  const handleClick = ({ target }) => {
+    const { name } = target;
+    const goodTime = 3000;
+    if (name.includes('startRecipe')) {
+      history.push(`/${path}/${id}/in-progress`);
+    }
+    if (name.includes('share')) {
+      navigator.clipboard.writeText(
+        `${window.location.origin}/${path}/${id}`,
+      );
+      setAlerta(true);
+      setTimeout(() => {
+        setAlerta(false);
+      }, goodTime);
+    }
+    if (name.includes('favorite')) {
+      setFavorites(favorites.filter((e) => e.id !== favoriteTarget.id));
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(favorites.filter((e) => e.id !== favoriteTarget.id)),
+      );
+    }
   };
 
   return (
     <div>
       {/* <button type="button" onClick={ mockStorage }>mock</button> */}
+      {alerta && <p>Link copied!</p>}
       {
         data
           ? (
@@ -215,6 +236,7 @@ autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-s
                 && (
                   <button
                     type="button"
+                    name="startRecipe"
                     data-testid="start-recipe-btn"
                     className="btnStartRecipe"
                     onClick={ handleClick }

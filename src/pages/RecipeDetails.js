@@ -17,15 +17,66 @@ function RecipeDetails(props) {
     === 'Meal' ? 'Drink' : 'Meal';
   const matcher2 = `${matcher.toLocaleLowerCase()}s`;
   const maxRecom = 6;
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const isDoneRecipe = doneRecipes && !!(doneRecipes.find((e) => e.id === id));
+  // console.log(doneRecipes);
+  // const doneRecipesMock = [
+  //   {
+  //     id: '15997',
+  //     type: 'drink',
+  //     nationality: 'Germany',
+  //     category: 'Ordinary Drink',
+  //     alcoholicOrNot: 'Optional alcohol',
+  //     name: 'GG',
+  //     image: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
+  //     doneDate: '21/12/2019',
+  //     tags: [],
+  //   },
+  //   {
+  //     id: '52977',
+  //     type: 'meal',
+  //     nationality: 'Turkish',
+  //     category: 'Side',
+  //     alcoholicOrNot: '',
+  //     name: 'Corba',
+  //     image: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
+  //     doneDate: '21/08/2019',
+  //     tags: ['Soup'],
+  //   },
+  //   {
+  //     id: '17222',
+  //     type: 'drink',
+  //     nationality: '',
+  //     category: 'Cocktail',
+  //     alcoholicOrNot: 'Alcoholic',
+  //     name: 'A1',
+  //     image: 'https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg',
+  //     doneDate: '25/12/2019',
+  //     tags: [],
+  //   },
+  //   {
+  //     id: '53060',
+  //     type: 'meal',
+  //     nationality: 'Croatian',
+  //     category: 'Side',
+  //     alcoholicOrNot: '',
+  //     name: 'Burek',
+  //     image: 'https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg',
+  //     doneDate: '21/12/2020',
+  //     tags: ['Streetfood', 'Onthego'],
+  //   },
+  // ];
+
+  // const mockStorage = () => {
+  //   localStorage.setItem('doneRecipes', JSON.stringify(doneRecipesMock));
+  // };
 
   useEffect(() => {
     if (pathname.includes('/meals')) {
-      console.log('entrou meals');
       getData(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       getData2('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     }
     if (pathname.includes('/drinks')) {
-      console.log('entrou drinks');
       getData(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       getData2('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     }
@@ -52,6 +103,7 @@ function RecipeDetails(props) {
 
   return (
     <div>
+      {/* <button type="button" onClick={ mockStorage }>mock</button> */}
       {
         data
           ? (
@@ -114,13 +166,18 @@ autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-s
                           index={ index }
                         />)))}
                   </div>)}
-              <button
-                type="button"
-                data-testid="start-recipe-btn"
-                className="btnStartRecipe"
-              >
-                Start Recipe
-              </button>
+              {
+                !isDoneRecipe
+                && (
+                  <button
+                    type="button"
+                    data-testid="start-recipe-btn"
+                    className="btnStartRecipe"
+                  >
+                    Start Recipe
+                  </button>
+                )
+              }
             </div>
           )
           : (

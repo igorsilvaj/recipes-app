@@ -114,6 +114,13 @@ autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-s
                           index={ index }
                         />)))}
                   </div>)}
+              <button
+                type="button"
+                data-testid="start-recipe-btn"
+                className="btnStartRecipe"
+              >
+                Start Recipe
+              </button>
             </div>
           )
           : (

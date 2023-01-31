@@ -5,6 +5,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchApi, fetchApi2 } from '../redux/actions';
 import Recommendations from '../components/RecommendationsCard';
+import favoriteIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 function RecipeDetails({ getData, data, getData2, recommendations }) {
   const history = useHistory();
@@ -137,6 +139,28 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
                 className="recipeDetailImg"
 
               />
+              <button
+                type="button"
+                onClick={ (event) => handleClick(event) }
+              >
+                <img
+                  name="share"
+                  data-testid="share-btn"
+                  src={ shareIcon }
+                  alt="Share Icon"
+                />
+              </button>
+              <button
+                type="button"
+                onClick={ (event) => handleClick(event) }
+              >
+                <img
+                  name="favorite"
+                  data-testid="favorite-btn"
+                  src={ favoriteIcon }
+                  alt="Favorite Icon"
+                />
+              </button>
               <p>
                 <span data-testid="recipe-title">
                   {data[path][0][`str${source}`]}

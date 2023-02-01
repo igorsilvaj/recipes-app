@@ -29,4 +29,3 @@ const apiResponse = (state = INITIAL_STATE, action) => {
 };
 
 export default apiResponse;
-

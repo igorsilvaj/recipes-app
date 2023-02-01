@@ -1,0 +1,45 @@
+.loginContainer {
+  background-image: url('../images/png/bgLogin.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 640px;
+  width: 100%;
+
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.loginLogo {
+  transform: translateY(-230px);
+}
+
+.inputEmail, .inputPass  {
+  height: 40px;
+  box-sizing: border-box;
+  border: 0.5px solid #41197F;
+  border-radius: 5px;
+  padding: 0 10px;
+  width: 276px;
+}
+
+.btnLogin {
+  width: 276px;
+  height: 40px;
+  color: white;
+  background: #FCC436;
+  border-radius: 5px;
+  border: none;
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 14px;
+  text-align: center;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  color: #FFFFFF;
+}

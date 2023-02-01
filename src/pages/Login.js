@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { saveUser } from '../redux/actions';
+import logo from '../images/png/logoRecipesAppLogin.png';
 
 function Login({ dispatch }) {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -37,24 +38,32 @@ function Login({ dispatch }) {
   }
 
   return (
-    <div>
+    <div className="loginContainer">
+      <div>
+        <img src={ logo } alt="logo" className="loginLogo" />
+      </div>
       { willRedirect && <Redirect to="/meals" /> }
       <input
         onChange={ handleChange }
+        className="inputEmail"
         name="email"
         type="text"
         data-testid="email-input"
         value={ userLogin.email }
+        placeholder="Email"
       />
       <input
         onChange={ handleChange }
+        className="inputPass"
         name="password"
         type="password"
         data-testid="password-input"
         value={ userLogin.password }
+        placeholder="Password"
       />
       <button
         disabled={ isButtonDisabled }
+        className="btnLogin"
         onClick={ handleClick }
         type="button"
         data-testid="login-submit-btn"

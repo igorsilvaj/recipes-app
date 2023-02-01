@@ -121,6 +121,7 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
   }
   const handleClick = ({ target }) => {
     const { name } = target;
+    console.log(name);
     const goodTime = 3000;
     if (name.includes('startRecipe')) {
       history.push(`/${path}/${id}/in-progress`);

@@ -18,69 +18,91 @@ export default function RecipeDetailsHelper(props) {
         alt=""
         data-testid="recipe-photo"
         className="recipeDetailImg"
+      />
+      <div>
 
-      />
-      <button
-        type="button"
-        onClick={ (event) => handleClick(event) }
-      >
-        <img
-          name="share"
-          data-testid="share-btn"
-          src={ shareIcon }
-          alt="Share Icon"
-        />
-      </button>
-      <button
-        type="button"
-        onClick={ (event) => handleClick(event) }
-      >
-        <img
-          name="favorite"
-          data-testid="favorite-btn"
-          src={ favorite ? favoritedIcon : favoriteIcon }
-          alt="Favorite Icon"
-        />
-      </button>
-      <p>
-        <span data-testid="recipe-title">
-          {data[path][0][`str${source}`]}
-        </span>
-      </p>
-      <p>
-        <span data-testid="recipe-category">
+        <button
+          type="button"
+          onClick={ (event) => handleClick(event) }
+          className="recipeDetailsShareBtn"
+        >
+          <img
+            name="share"
+            data-testid="share-btn"
+            src={ shareIcon }
+            alt="Share Icon"
+            className="recipeDetailsTopImg"
+          />
+        </button>
+        <button
+          type="button"
+          onClick={ (event) => handleClick(event) }
+          className="recipeDetailsFavoriteBtn"
+        >
+          <img
+            name="favorite"
+            data-testid="favorite-btn"
+            src={ favorite ? favoritedIcon : favoriteIcon }
+            alt="Favorite Icon"
+            className="recipeDetailsTopImg"
+          />
+        </button>
+        {/* <div
+        className={
+          `${source === 'Meal' ? 'imgMealCategoryDetails' : 'imgDrinkCategoryDetails'} ${data[path][0].strCategory.replace(/\s/g, '').replace('/', '')}`
+        }
+      /> */}
+      </div>
+
+      <span data-testid="recipe-category" className="recipeDetailsCategory">
+        {
+          path === 'drinks'
+            ? `${data[path][0].strCategory} ${data[path][0].strAlcoholic}`
+            : data[path][0].strCategory
+        }
+      </span>
+      <span data-testid="recipe-title" className="recipeDetailsTitle">
+        {data[path][0][`str${source}`]}
+      </span>
+      <div className="recipeDetailsIngredients">
+        <h3>Ingredients</h3>
+        <div className="boxWithBorder">
           {
-            path === 'drinks'
-              ? `${data[path][0].strCategory} ${data[path][0].strAlcoholic}`
-              : data[path][0].strCategory
+            ingredients.map((e, index) => (
+              <p key={ `ingredient-${index}` }>
+                •
+                <span
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  {`${measure[index]} ${e}`}
+                </span>
+              </p>
+            ))
           }
-        </span>
-      </p>
-      {
-        ingredients.map((e, index) => (
-          <p key={ `ingredient-${index}` }>
-            •
-            <span
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {`${measure[index]} ${e}`}
-            </span>
-          </p>
-        ))
-      }
-      <span>{ }</span>
-      <span data-testid="instructions">{data[path][0].strInstructions}</span>
-      <iframe
-        width="340"
-        height="315"
-        src={ video }
-        title="YouTube video player"
-        allow={ `accelerometer;
+        </div>
+      </div>
+      <div className="recipeDetailsInstructions">
+        <h3>Instructions</h3>
+        <div className="boxWithBorder">
+          <span data-testid="instructions">{data[path][0].strInstructions}</span>
+        </div>
+      </div>
+      <div className="recipeDetailsVideo">
+        <h3>Video</h3>
+        <iframe
+          width="340"
+          height="315"
+          src={ video }
+          title="YouTube video player"
+          allow={ `accelerometer;
 autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share` }
-        allowFullScreen
-        data-testid="video"
-      />
-      {recommendations
+          allowFullScreen
+          data-testid="video"
+        />
+      </div>
+      <div className="recipeDetailsRecommendations">
+        <h3>Recommended</h3>
+        {recommendations
                 && (
                   <div className="carouselContainer">
                     {recommendations[matcher2]
@@ -92,28 +114,30 @@ autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-s
                             index={ index }
                           />)))}
                   </div>)}
+      </div>
+
       {
         !isDoneRecipe
-                && (
-                  <button
-                    type="button"
-                    name="startRecipe"
-                    data-testid="start-recipe-btn"
-                    className="btnStartRecipe"
-                    onClick={ handleClick }
-                  >
-                    {isinProgressRecipe
-                      ? (
-                        <span>
-                          Continue Recipe
-                        </span>)
-                      : (
-                        <span>
-                          Start Recipe
-                        </span>
-                      )}
-                  </button>
-                )
+        && (
+          <button
+            type="button"
+            name="startRecipe"
+            data-testid="start-recipe-btn"
+            className="btnStartRecipe"
+            onClick={ handleClick }
+          >
+            {isinProgressRecipe
+              ? (
+                <span>
+                  Continue Recipe
+                </span>)
+              : (
+                <span>
+                  Start Recipe
+                </span>
+              )}
+          </button>
+        )
       }
     </div>
   );

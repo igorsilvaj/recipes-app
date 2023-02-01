@@ -13,11 +13,9 @@ function RecipeCard(props) {
   const HandleCLick = () => {
     if (pathname.includes('/meals')) {
       history.push(`/meals/${recipe.idMeal}`);
-      console.log(recipe);
     }
     if (pathname.includes('/drinks')) {
       history.push(`/drinks/${recipe.idDrink}`);
-      console.log(recipe);
     }
   };
   return (

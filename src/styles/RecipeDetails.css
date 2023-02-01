@@ -1,27 +1,152 @@
-/* .recipeDetailsContainer {} */
+.recipeDetailsContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
 .recipeDetailImg {
   border-radius: 0;
   height: 161.85px;
   object-fit: cover;
-  width: 362.01px;
+  width: fill;
+}
+
+.imgDrinkCategoryDetails {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid rgb(252, 196, 54);
+  border-radius: 33px;
+  display: flex;
+  flex-flow: row wrap;
+  height: 33px;
+  justify-content: center;
+  left: 10px;
+  padding: 2px;
+  position: absolute;
+  top: 10px;
+  width: 33px;
+}
+
+.imgMealCategoryDetails {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid rgb(252, 196, 54);
+  border-radius: 33px;
+  display: flex;
+  flex-flow: row wrap;
+  height: 33px;
+  justify-content: center;
+  left: 10px;
+  padding: 2px;
+  position: absolute;
+  top: 10px;
+  width: 33px;
+}
+
+.recipeDetailsTitle {
+  color: white;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 900;
+  height: 42px;
+  left: 109.01px;
+  letter-spacing: 0.105em;
+  line-height: 20px;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 81px;
+  width: 147px;
+}
+
+.recipeDetailsCategory {
+  color: rgb(252, 196, 54);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 900;
+  height: 11px;
+  left: 20px;
+  line-height: 12px;
+  position: absolute;
+  top: 23px;
+  width: 72px;
+}
+
+.recipeDetailsShareBtn {
+  background-color: transparent;
+  border: none;
+  filter: invert(77%) sepia(77%) saturate(489%) hue-rotate(338deg)
+    brightness(101%) contrast(98%);
+  position: absolute;
+  right: 50px;
+  top: 23px;
+}
+
+.recipeDetailsFavoriteBtn {
+  background-color: transparent;
+  border: none;
+  filter: invert(77%) sepia(77%) saturate(489%) hue-rotate(338deg)
+    brightness(101%) contrast(98%);
+  position: absolute;
+  right: 20px;
+  top: 23px;
+}
+
+.recipeDetailsTopImg {
+  height: 20.3px;
+  width: 22.89px;
+}
+
+.boxWithBorder {
+  border: 1px solid rgb(177, 177, 177);
+  border-radius: 5px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0 auto;
+  padding: 10px;
+  width: 335px;
+}
+
+.recipeDetailsIngredients {
+  margin: 0 auto;
+}
+
+.recipeDetailsInstructions {
+  margin: 0 auto;
+}
+
+.recipeDetailsVideo {
+  margin: 0 auto;
+}
+
+.recipeDetailsRecommendations {
+  margin: 0 auto;
+  width: 340px;
 }
 
 .carouselContainer {
   display: flex;
   flex-flow: row nowrap;
   gap: 10px;
+  margin-bottom: 70px;
   overflow-x: scroll;
 }
 
 .btnStartRecipe {
   background: rgb(252, 196, 54);
+  border: none;
+  border-radius: 5px;
   bottom: 0;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.25);
   color: white;
-  display: flex;
-  flex-flow: row wrap;
+  font-weight: 900;
   height: 52px;
   justify-content: space-between;
+  margin: 0 auto;
+  margin-bottom: 10px;
   position: fixed;
-  width: 100%;
+  text-transform: uppercase;
+  width: 336px;
 }

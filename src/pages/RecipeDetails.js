@@ -4,10 +4,7 @@ import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchApi, fetchApi2 } from '../redux/actions';
-import Recommendations from '../components/RecommendationsCard';
-import favoriteIcon from '../images/whiteHeartIcon.svg';
-import favoritedIcon from '../images/blackHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
+import RecipeDetailsHelper from '../components/RecipeDetailsHelper';
 
 function RecipeDetails({ getData, data, getData2, recommendations }) {
   const history = useHistory();
@@ -18,7 +15,6 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
     === 'Meal' ? 'Drink' : 'Meal';
   const matcher2 = `${matcher.toLocaleLowerCase()}s`;
   const { id } = useParams();
-  const maxRecom = 6;
 
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   const isDoneRecipe = doneRecipes && !!(doneRecipes.find((e) => e.id === id));
@@ -27,7 +23,8 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
   const isinProgressRecipe = inProgressRecipes && !!inProgressRecipes[path][id];
 
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const [favorite, setFavorite] = useState(favoriteRecipes && !!favoriteRecipes.find((e) => e.id === id));
+  const [favorite, setFavorite] = useState(favoriteRecipes
+    && !!favoriteRecipes.find((e) => e.id === id));
   // const inProgressRecipesMock = {
   //   drinks: {
   //     15997: ['lista-de-ingredientes-utilizados'],
@@ -167,116 +164,24 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
 
   return (
     <div>
-      {/* <button type="button" onClick={ mockStorage }>mock</button> */}
       {alerta && <p>Link copied!</p>}
       {
         data
           ? (
-            <div className="recipeDetailsContainer">
-              <img
-                src={
-                  data[path][0][`str${source}Thumb`]
-                }
-                alt=""
-                data-testid="recipe-photo"
-                className="recipeDetailImg"
-
-              />
-              <button
-                type="button"
-                onClick={ (event) => handleClick(event) }
-              >
-                <img
-                  name="share"
-                  data-testid="share-btn"
-                  src={ shareIcon }
-                  alt="Share Icon"
-                />
-              </button>
-              <button
-                type="button"
-                onClick={ (event) => handleClick(event) }
-              >
-                <img
-                  name="favorite"
-                  data-testid="favorite-btn"
-                  src={ favorite ? favoritedIcon : favoriteIcon }
-                  alt="Favorite Icon"
-                />
-              </button>
-              <p>
-                <span data-testid="recipe-title">
-                  {data[path][0][`str${source}`]}
-                </span>
-              </p>
-              <p>
-                <span data-testid="recipe-category">
-                  {
-                    path === 'drinks'
-                      ? `${data[path][0].strCategory} ${data[path][0].strAlcoholic}`
-                      : data[path][0].strCategory
-                  }
-                </span>
-              </p>
-              {
-                ingredients.map((e, index) => (
-                  <p key={ `ingredient-${index}` }>
-                    •
-                    <span
-                      data-testid={ `${index}-ingredient-name-and-measure` }
-                    >
-                      {`${measure[index]} ${e}`}
-                    </span>
-                  </p>
-                ))
-              }
-              <span>{ }</span>
-              <span data-testid="instructions">{data[path][0].strInstructions}</span>
-              <iframe
-                width="340"
-                height="315"
-                src={ video }
-                title="YouTube video player"
-                allow={ `accelerometer;
-autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share` }
-                allowFullScreen
-                data-testid="video"
-              />
-              {recommendations
-                && (
-                  <div className="carouselContainer">
-                    {recommendations[matcher2]
-                      .map((a, index) => (
-                        index < maxRecom && (<Recommendations
-                          key={ `key-${index}` }
-                          recipe={ a }
-                          index={ index }
-                        />)))}
-                  </div>)}
-              {
-                !isDoneRecipe
-                && (
-                  <button
-                    type="button"
-                    name="startRecipe"
-                    data-testid="start-recipe-btn"
-                    className="btnStartRecipe"
-                    onClick={ handleClick }
-                  >
-                    {isinProgressRecipe
-                      ? (
-                        <span>
-                          Continue Recipe
-                        </span>)
-                      : (
-                        <span>
-                          Start Recipe
-                        </span>
-                      )}
-                  </button>
-                )
-              }
-            </div>
+            <RecipeDetailsHelper
+              { ...{ data,
+                path,
+                source,
+                favorite,
+                matcher2,
+                ingredients,
+                measure,
+                video,
+                recommendations,
+                isDoneRecipe,
+                handleClick,
+                isinProgressRecipe } }
+            />
           )
           : (
             <div />

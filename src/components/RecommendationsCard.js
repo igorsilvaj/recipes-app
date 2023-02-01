@@ -5,7 +5,7 @@ import '../styles/RecipeCard.css';
 import { connect } from 'react-redux';
 import { fetchApi, fetchApi2 } from '../redux/actions';
 
-function Recommendations(props) {
+function RecommendationsCard(props) {
   const { recipe, index } = props;
   const history = useHistory();
   const { pathname } = history.location;
@@ -57,9 +57,9 @@ const mapStateToProps = (state) => ({
   recommendations: state.apiResponse.recommendations,
 });
 
-Recommendations.propTypes = {
+RecommendationsCard.propTypes = {
   recipe: PropTypes.shape({}),
   index: PropTypes.number,
 }.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Recommendations);
+export default connect(mapStateToProps, mapDispatchToProps)(RecommendationsCard);

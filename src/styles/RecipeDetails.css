@@ -1,6 +1,7 @@
 .recipeDetailsContainer {
   display: flex;
   flex-flow: row wrap;
+  gap: 15px 0;
   justify-content: center;
 }
 
@@ -8,7 +9,15 @@
   border-radius: 0;
   height: 161.85px;
   object-fit: cover;
-  width: fill;
+  width: stretch;
+}
+
+.recipeDetaillsHeaderItems {
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 40px;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 .imgDrinkCategoryDetails {
@@ -23,7 +32,7 @@
   left: 10px;
   padding: 2px;
   position: absolute;
-  top: 10px;
+  top: 0;
   width: 33px;
 }
 
@@ -39,8 +48,51 @@
   left: 10px;
   padding: 2px;
   position: absolute;
-  top: 10px;
+  top: 0;
   width: 33px;
+}
+
+.recipeDetailsCategory {
+  align-items: center;
+  color: rgb(252, 196, 54);
+  display: flex;
+  flex-flow: row wrap;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 900;
+  height: 100%;
+  justify-content: center;
+  left: 20px;
+  line-height: 15px;
+  margin-top: 2px;
+  position: absolute;
+  top: 0;
+  width: 150px;
+}
+
+.recipeDetailsShareBtn {
+  background-color: transparent;
+  border: none;
+  filter: invert(77%) sepia(77%) saturate(489%) hue-rotate(338deg)
+    brightness(101%) contrast(98%);
+  position: absolute;
+  right: 50px;
+  top: 10px;
+}
+
+.recipeDetailsFavoriteBtn {
+  background-color: transparent;
+  border: none;
+  filter: invert(77%) sepia(77%) saturate(489%) hue-rotate(338deg)
+    brightness(101%) contrast(98%);
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+
+.recipeDetailsTopImg {
+  height: 20.3px;
+  width: 22.89px;
 }
 
 .recipeDetailsTitle {
@@ -59,42 +111,9 @@
   width: 147px;
 }
 
-.recipeDetailsCategory {
-  color: rgb(252, 196, 54);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 900;
-  height: 11px;
-  left: 20px;
-  line-height: 12px;
-  position: absolute;
-  top: 23px;
-  width: 72px;
-}
-
-.recipeDetailsShareBtn {
-  background-color: transparent;
-  border: none;
-  filter: invert(77%) sepia(77%) saturate(489%) hue-rotate(338deg)
-    brightness(101%) contrast(98%);
-  position: absolute;
-  right: 50px;
-  top: 23px;
-}
-
-.recipeDetailsFavoriteBtn {
-  background-color: transparent;
-  border: none;
-  filter: invert(77%) sepia(77%) saturate(489%) hue-rotate(338deg)
-    brightness(101%) contrast(98%);
-  position: absolute;
-  right: 20px;
-  top: 23px;
-}
-
-.recipeDetailsTopImg {
-  height: 20.3px;
-  width: 22.89px;
+.recipeDetailsBodyTitle {
+  padding-bottom: 7px;
+  padding-left: 10px;
 }
 
 .boxWithBorder {

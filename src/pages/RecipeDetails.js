@@ -119,13 +119,14 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
     video = data[path][0].strVideo && (
       data[path][0].strVideo.replace('watch?v=', 'embed/'));
   }
+
+  const startRecipe = () => {
+    history.push(`/${path}/${id}/in-progress`);
+  };
+
   const handleClick = ({ target }) => {
     const { name } = target;
-    console.log(name);
     const goodTime = 3000;
-    if (name.includes('startRecipe')) {
-      history.push(`/${path}/${id}/in-progress`);
-    }
     if (name.includes('share')) {
       navigator.clipboard.writeText(
         `${window.location.origin}/${path}/${id}`,
@@ -181,7 +182,8 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
                 recommendations,
                 isDoneRecipe,
                 handleClick,
-                isinProgressRecipe } }
+                isinProgressRecipe,
+                startRecipe } }
             />
           )
           : (

@@ -19,28 +19,29 @@ function RecipeCard(props) {
     }
   };
   return (
-    <div className="recipeCard" data-testid={ `${index}-recipe-card` }>
-      <img
-        src={ recipe[`str${matcher}Thumb`] }
-        alt="recipe"
-        data-testid={ `${index}-card-img` }
-        className="imgCard"
-      />
-      <p className="txtCard">
-        <span
-          data-testid={ `${index}-card-name` }
-        >
-          {recipe[`str${matcher}`]}
-        </span>
-      </p>
-      <button
-        type="button"
-        onClick={ HandleCLick }
-        className="btnGoToDetails"
-      >
-        Veja Detalhes
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={ HandleCLick }
+      className="btnGoToDetails"
+    >
+      Veja Detalhes
+      <div className="recipeCard" data-testid={ `${index}-recipe-card` }>
+        <img
+          src={ recipe[`str${matcher}Thumb`] }
+          alt="recipe"
+          data-testid={ `${index}-card-img` }
+          className="imgCard"
+        />
+        <p className="txtCard">
+          <span
+            data-testid={ `${index}-card-name` }
+          >
+            {recipe[`str${matcher}`]}
+          </span>
+        </p>
+
+      </div>
+    </button>
   );
 }
 

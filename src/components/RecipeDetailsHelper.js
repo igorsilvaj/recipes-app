@@ -7,7 +7,8 @@ import RecommendationsCard from './RecommendationsCard';
 
 export default function RecipeDetailsHelper(props) {
   const { data, path, source, favorite, matcher2, ingredients, measure,
-    video, recommendations, isDoneRecipe, handleClick, isinProgressRecipe } = props;
+    video, recommendations, isDoneRecipe, handleClick, isinProgressRecipe,
+    startRecipe } = props;
   const maxRecom = 6;
   return (
     <div className="recipeDetailsContainer">
@@ -19,8 +20,7 @@ export default function RecipeDetailsHelper(props) {
         data-testid="recipe-photo"
         className="recipeDetailImg"
       />
-      <div>
-
+      <div className="recipeDetaillsHeaderItems">
         <button
           type="button"
           onClick={ (event) => handleClick(event) }
@@ -48,24 +48,24 @@ export default function RecipeDetailsHelper(props) {
           />
         </button>
         {/* <div
-        className={
-          `${source === 'Meal' ? 'imgMealCategoryDetails' : 'imgDrinkCategoryDetails'} ${data[path][0].strCategory.replace(/\s/g, '').replace('/', '')}`
-        }
-      /> */}
+          className={
+            `${source === 'Meal' ? 'imgMealCategoryDetails' : 'imgDrinkCategoryDetails'} ${data[path][0].strCategory.replace(/\s/g, '').replace('/', '')}`
+          }
+        /> */}
+        <span data-testid="recipe-category" className="recipeDetailsCategory">
+          {
+            path === 'drinks'
+              ? `${data[path][0].strCategory} ${data[path][0].strAlcoholic}`
+              : data[path][0].strCategory
+          }
+        </span>
       </div>
 
-      <span data-testid="recipe-category" className="recipeDetailsCategory">
-        {
-          path === 'drinks'
-            ? `${data[path][0].strCategory} ${data[path][0].strAlcoholic}`
-            : data[path][0].strCategory
-        }
-      </span>
       <span data-testid="recipe-title" className="recipeDetailsTitle">
         {data[path][0][`str${source}`]}
       </span>
       <div className="recipeDetailsIngredients">
-        <h3>Ingredients</h3>
+        <h3 className="recipeDetailsBodyTitle">Ingredients</h3>
         <div className="boxWithBorder">
           {
             ingredients.map((e, index) => (
@@ -82,13 +82,13 @@ export default function RecipeDetailsHelper(props) {
         </div>
       </div>
       <div className="recipeDetailsInstructions">
-        <h3>Instructions</h3>
+        <h3 className="recipeDetailsBodyTitle">Instructions</h3>
         <div className="boxWithBorder">
           <span data-testid="instructions">{data[path][0].strInstructions}</span>
         </div>
       </div>
       <div className="recipeDetailsVideo">
-        <h3>Video</h3>
+        <h3 className="recipeDetailsBodyTitle">Video</h3>
         <iframe
           width="340"
           height="315"
@@ -101,7 +101,7 @@ autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-s
         />
       </div>
       <div className="recipeDetailsRecommendations">
-        <h3>Recommended</h3>
+        <h3 className="recipeDetailsBodyTitle">Recommended</h3>
         {recommendations
                 && (
                   <div className="carouselContainer">
@@ -124,15 +124,15 @@ autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-s
             name="startRecipe"
             data-testid="start-recipe-btn"
             className="btnStartRecipe"
-            onClick={ handleClick }
+            onClick={ startRecipe }
           >
             {isinProgressRecipe
               ? (
-                <span>
+                <span name="startRecipe">
                   Continue Recipe
                 </span>)
               : (
-                <span>
+                <span name="startRecipe">
                   Start Recipe
                 </span>
               )}
@@ -156,4 +156,5 @@ RecipeDetailsHelper.propTypes = {
   isDoneRecipe: PropTypes.bool,
   handleClick: PropTypes.func,
   isinProgressRecipe: PropTypes.bool,
+  startRecipe: PropTypes.func,
 }.isRequired;

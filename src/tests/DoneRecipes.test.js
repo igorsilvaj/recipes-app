@@ -108,10 +108,12 @@ describe('Testa página DoneRecipes', () => {
   });
 
   it('Verifica se é gerada uma url ao clicar em compartilhar', async () => {
-    jest.spyOn(navigator.clipboard, 'writeText');
+    navigator.clipboard = {
+      writeText: jest.fn(),
+    };
     renderWithRouterAndRedux(<App />, {}, doneRecipesUrl);
     const btnShare = await screen.findByTestId('0-horizontal-share-btn');
     userEvent.click(btnShare);
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('http://localhost:3000/meals/52771');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('http://localhost/meals/52771');
   });
 });

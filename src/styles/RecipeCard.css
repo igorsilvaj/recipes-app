@@ -9,8 +9,9 @@
 }
 
 .imgCard {
+  border-radius: 4px 4px 0 0;
   height: 135px;
-  width: 163px;
+  width: 161.3px;
 }
 
 .txtCard {

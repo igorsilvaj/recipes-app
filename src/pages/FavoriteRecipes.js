@@ -74,10 +74,21 @@ export default function FavoriteRecipes() {
                   />
                 </Link>
                 <div className="favoriteInfos">
-                  <Link to={ `/${e.type}s/${e.id}` }>
-                    <p data-testid={ `${index}-horizontal-name` }>{e.name}</p>
+                  <Link
+                    to={ `/${e.type}s/${e.id}` }
+                    className="favoriteTitleLink"
+                  >
+                    <p
+                      data-testid={ `${index}-horizontal-name` }
+                      className="favoriteTitle"
+                    >
+                      {e.name}
+                    </p>
                   </Link>
-                  <p data-testid={ `${index}-horizontal-top-text` }>
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                    className="favoriteCategory"
+                  >
                     { e.nationality || e.alcoholicOrNot
                       ? `${e.nationality}${e.alcoholicOrNot} - ${e.category}`
                       : e.category}
@@ -85,23 +96,27 @@ export default function FavoriteRecipes() {
                   <button
                     type="button"
                     onClick={ (event) => handleClick(event) }
+                    className="favoriteShareBtn"
                   >
                     <img
                       name={ `${index}-share` }
                       data-testid={ `${index}-horizontal-share-btn` }
                       src={ shareIcon }
                       alt="Share Icon"
+                      className="favoriteShareImg"
                     />
                   </button>
                   <button
                     type="button"
                     onClick={ (event) => handleClick(event) }
+                    className="favoriteLikeBtn"
                   >
                     <img
                       name={ `${index}-favorite` }
                       data-testid={ `${index}-horizontal-favorite-btn` }
                       src={ favoriteIcon }
                       alt="Favorite Icon"
+                      className="favoriteLikeImg"
                     />
                   </button>
                 </div>

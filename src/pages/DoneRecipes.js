@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
-import doneRecipesMock from '../tests/mocks/dataDoneRecipes';
+// import doneRecipesMock from '../tests/mocks/dataDoneRecipes';
 
 export default function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
@@ -31,6 +32,7 @@ export default function DoneRecipes() {
   };
 
   useEffect(() => {
+    const doneRecipesArr = JSON.parse(window.localStorage.getItem('doneRecipes'));
     const mealFilter = recipesData.filter((recipe) => recipe.type === 'meal');
     const drinkFilter = recipesData.filter((recipe) => recipe.type === 'drink');
     if (filter === 'meal') {
@@ -38,7 +40,7 @@ export default function DoneRecipes() {
     } if (filter === 'drink') {
       setDoneRecipes(drinkFilter);
     } if (filter === 'all') {
-      setDoneRecipes(doneRecipesMock);
+      setDoneRecipes(doneRecipesArr);
     }
   }, [filter]);
 
@@ -60,97 +62,125 @@ export default function DoneRecipes() {
   return (
     <div>
       <Header />
-      <div>
+      <div className="doneCategories">
         <button
           data-testid="filter-by-all-btn"
-          className="recipeCategory"
+          className="favoriteCategoryBtn allImg"
           onClick={ setAllItens }
         >
-          All
+          <div className="txtFilterDone">
+            All
+          </div>
         </button>
         <button
           data-testid="filter-by-meal-btn"
-          className="recipeCategory"
+          className="favoriteCategoryBtn foodImg"
           onClick={ setMealItens }
         >
-          Meals
+          <div className="txtFilterDone">
+            Food
+          </div>
         </button>
         <button
           data-testid="filter-by-drink-btn"
-          className="recipeCategory"
+          className="favoriteCategoryBtn drinksImg"
           onClick={ setDrinkItens }
         >
-          Drinks
+          <div className="txtFilterDone">
+            Drinks
+          </div>
         </button>
       </div>
-      {
-        doneRecipes && doneRecipes.map((recipe, index) => (
-          <div
-            key={ recipe.id }
-          >
-            <button
-              type="button"
-              onClick={ () => detailsRedirect(recipe.id, recipe.type) }
+      <div className="donesDisplay">
+        {
+          alerta && <p>Link copied!</p>
+        }
+        {
+          doneRecipes && doneRecipes.map((recipe, index) => (
+            <div
+              key={ recipe.id }
+              className="doneDisplay"
             >
-              <img
-                src={ recipe.image }
-                alt={ recipe.name }
-                data-testid={ `${index}-horizontal-image` }
-                width={ 150 }
-              />
-            </button>
-            <button
-              type="button"
-              onClick={ () => detailsRedirect(recipe.id, recipe.type) }
-            >
-              <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
-            </button>
-            {
-              recipe.type === 'meal'
-                ? (
-                  <p data-testid={ `${index}-horizontal-top-text` }>
-                    {`${recipe.nationality} - ${recipe.category}`}
-                  </p>
-                )
-                : (
+              <button
+                type="button"
+                onClick={ () => detailsRedirect(recipe.id, recipe.type) }
+                className="doneImgBtn"
+              >
+                <img
+                  src={ recipe.image }
+                  alt={ recipe.name }
+                  data-testid={ `${index}-horizontal-image` }
+                  className="doneImg"
+                />
+              </button>
+              <div className="doneInfos">
+                <button
+                  type="button"
+                  onClick={ () => detailsRedirect(recipe.id, recipe.type) }
+                  className="doneTitleBtn"
+                >
                   <p
-                    data-testid={ `${index}-horizontal-top-text` }
+                    data-testid={ `${index}-horizontal-name` }
+                    className="doneTitle"
                   >
-                    {recipe.alcoholicOrNot}
+                    {recipe.name}
                   </p>
-                )
-            }
-
-            <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-            {recipe.type === 'meal' && (
-              <div>
-                {recipe.tags.map((tag, i) => (
-                  i <= 1 && (
-                    <p
-                      data-testid={ `${index}-${tag}-horizontal-tag` }
-                      key={ i }
-                    >
-                      {tag}
-                    </p>)
-                ))}
+                </button>
+                {
+                  recipe.type === 'meal'
+                    ? (
+                      <p
+                        data-testid={ `${index}-horizontal-top-text` }
+                        className="doneCategory"
+                      >
+                        {`${recipe.nationality} - ${recipe.category}`}
+                      </p>
+                    )
+                    : (
+                      <p
+                        data-testid={ `${index}-horizontal-top-text` }
+                        className="doneCategory"
+                      >
+                        {recipe.alcoholicOrNot}
+                      </p>
+                    )
+                }
+                <p className="doneInTxt">
+                  {'Done in: '}
+                  <span data-testid={ `${index}-horizontal-done-date` }>
+                    {recipe.doneDate}
+                  </span>
+                </p>
+                {recipe.type === 'meal' && (
+                  <div className="doneTags">
+                    {recipe.tags.map((tag, i) => (
+                      i <= 1 && (
+                        <p
+                          data-testid={ `${index}-${tag}-horizontal-tag` }
+                          key={ i }
+                          className="doneTag"
+                        >
+                          {tag}
+                        </p>)
+                    ))}
+                  </div>
+                )}
+                <button
+                  type="button"
+                  onClick={ () => shareButton(recipe.id, recipe.type) }
+                  className="doneShareBtn"
+                >
+                  <img
+                    src={ shareIcon }
+                    alt="Share"
+                    data-testid={ `${index}-horizontal-share-btn` }
+                    className="doneShareImg"
+                  />
+                </button>
               </div>
-            )}
-            <button
-              type="button"
-              onClick={ () => shareButton(recipe.id, recipe.type) }
-            >
-              <img
-                src={ shareIcon }
-                alt="Share"
-                data-testid={ `${index}-horizontal-share-btn` }
-              />
-            </button>
-            {
-              alerta && <p>Link copied!</p>
-            }
-          </div>))
-
-      }
+            </div>))
+        }
+      </div>
     </div>
   );
 }

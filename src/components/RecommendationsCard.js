@@ -13,37 +13,23 @@ function RecommendationsCard(props) {
   const matcher = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)
    === 'Meal' ? 'Drink' : 'Meal';
 
-  const HandleCLick = () => {
-    if (pathname.includes('/meals')) {
-      history.push(`/drinks/${recipe.idDrink}`);
-    }
-    if (pathname.includes('/drinks')) {
-      history.push(`/meals/${recipe.idMeal}`);
-    }
-  };
   return (
-    <button
-      type="button"
-      onClick={ HandleCLick }
-      className="btnGoToDetails"
-    >
-      <div className="recipeCard" data-testid={ `${index}-recommendation-card` }>
-        <img
-          src={ recipe[`str${matcher}Thumb`] }
-          alt="recipe"
-          data-testid={ `${index}-card-img` }
-          className="imgCard"
-        />
+    <div className="recipeCard" data-testid={ `${index}-recommendation-card` }>
+      <img
+        src={ recipe[`str${matcher}Thumb`] }
+        alt="recipe"
+        data-testid={ `${index}-card-img` }
+        className="imgCard"
+      />
 
-        <p className="txtCard">
-          <span
-            data-testid={ `${index}-recommendation-title` }
-          >
-            {recipe[`str${matcher}`]}
-          </span>
-        </p>
-      </div>
-    </button>
+      <p className="txtCard">
+        <span
+          data-testid={ `${index}-recommendation-title` }
+        >
+          {recipe[`str${matcher}`]}
+        </span>
+      </p>
+    </div>
   );
 }
 

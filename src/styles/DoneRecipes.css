@@ -1,11 +1,11 @@
-.favoriteCategories {
+.doneCategories {
   display: flex;
   gap: 40px;
   justify-content: center;
   width: 100%;
 }
 
-.favoriteCategoryBtn {
+.doneCategoryBtn {
   background-color: transparent;
   border: 2px solid rgb(252, 196, 54);
   border-radius: 50%;
@@ -16,35 +16,7 @@
   width: 66px;
 }
 
-.allImg {
-  background-image: url('../images/png/fast_food_outline.png');
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.foodImg {
-  background-image: url('../images/png/mealIcon.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 60%;
-}
-
-.drinksImg {
-  background-image: url('../images/png/drinkIcon.png');
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.favoritesDisplay {
-  display: flex;
-  flex-flow: column wrap;
-  gap: 10px 0;
-  justify-content: center;
-  margin-top: 40px;
-  width: 100%;
-}
-
-.txtFilterFavorites {
+.txtFilterDone {
   align-items: flex-start;
   color: rgb(121, 125, 134);
   display: flex;
@@ -59,7 +31,16 @@
   transform: translateY(50px);
 }
 
-.favoriteDisplay {
+.donesDisplay {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 10px 0;
+  justify-content: center;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.doneDisplay {
   background: white;
   border: 0.518px solid rgb(177, 177, 177);
   border-radius: 5px;
@@ -70,23 +51,39 @@
   width: 318px;
 }
 
-.favoriteImg {
+.doneImgBtn {
+  background-color: transparent;
+  border: none;
+  height: auto;
+  width: auto;
+}
+
+.doneImg {
   border-radius: 5px 0 0 5px;
   height: 134.85px;
   margin: 0;
   width: 163.35px;
 }
 
-.favoriteInfos {
-  align-items: flex-end;
+.doneInfos {
+  align-items: center;
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
-  padding: 20px 10px;
+  padding: 10px;
+  position: relative;
   width: 152.5px;
+  word-break: normal;
 }
 
-.favoriteTitle {
+.doneTitleBtn {
+  background-color: transparent;
+  border: none;
+  height: auto;
+  width: auto;
+}
+
+.doneTitle {
   color: rgb(26, 27, 28);
   font-size: 12px;
   font-style: normal;
@@ -97,17 +94,7 @@
   width: 100%;
 }
 
-.favoriteTitleLink {
-  height: 12px;
-  width: auto;
-}
-
-.favoriteTitle:visited {
-  color: black;
-  text-decoration: none;
-}
-
-.favoriteCategory {
+.doneCategory {
   color: rgb(121, 125, 134);
   font-size: 9px;
   font-style: normal;
@@ -118,26 +105,52 @@
   width: 100%;
 }
 
-.favoriteShareBtn {
+.doneInTxt {
+  color: rgb(26, 27, 28);
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 400;
+  height: 9px;
+  line-height: 9px;
+  text-align: start;
+  width: 100%;
+}
+
+.doneTags {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 0 5px;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.doneTag {
+  align-items: center;
+  background: rgb(217, 217, 217);
+  border-radius: 10px;
+  color: rgb(121, 125, 134);
+  display: flex;
+  flex-flow: row wrap;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 400;
+  height: 14px;
+  justify-content: center;
+  line-height: 9px;
+  width: 29px;
+}
+
+.doneShareBtn {
   background-color: transparent;
   border: none;
   height: auto;
+  position: absolute;
+  right: 10px;
+  top: 10px;
   width: auto;
 }
 
-.favoriteShareImg {
-  filter: invert(91%) sepia(25%) saturate(2611%)
-    hue-rotate(329deg) brightness(104%) contrast(98%);
-}
-
-.favoriteLikeBtn {
-  background-color: transparent;
-  border: none;
-  height: auto;
-  width: auto;
-}
-
-.favoriteLikeImg {
+.doneShareImg {
   filter: invert(91%) sepia(25%) saturate(2611%)
     hue-rotate(329deg) brightness(104%) contrast(98%);
 }

@@ -111,3 +111,7 @@
 .headerFavoriteRecipesIcon {
   background-image: url('../images/png/yellowCircleWithHeart.png');
 }
+
+.headerLogoutIcon {
+  background-image: url('../images/png/logoutWithCircle.png');
+}

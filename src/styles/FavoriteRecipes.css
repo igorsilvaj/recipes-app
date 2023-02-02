@@ -78,12 +78,16 @@
 }
 
 .favoriteInfos {
-  align-items: flex-end;
+  align-items: center;
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
-  padding: 20px 10px;
+  padding: 20px;
   width: 152.5px;
+}
+
+.titleContainer {
+  width: 100%;
 }
 
 .favoriteTitle {
@@ -100,11 +104,6 @@
 .favoriteTitleLink {
   height: 12px;
   width: auto;
-}
-
-.favoriteTitle:visited {
-  color: black;
-  text-decoration: none;
 }
 
 .favoriteCategory {
@@ -128,6 +127,9 @@
 .favoriteShareImg {
   filter: invert(91%) sepia(25%) saturate(2611%)
     hue-rotate(329deg) brightness(104%) contrast(98%);
+  height: 20.3px;
+  margin-right: 15px;
+  width: 22.89px;
 }
 
 .favoriteLikeBtn {
@@ -140,4 +142,6 @@
 .favoriteLikeImg {
   filter: invert(91%) sepia(25%) saturate(2611%)
     hue-rotate(329deg) brightness(104%) contrast(98%);
+  height: 20.3px;
+  width: 22.89px;
 }

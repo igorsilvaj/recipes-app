@@ -74,25 +74,27 @@ export default function FavoriteRecipes() {
                   />
                 </Link>
                 <div className="favoriteInfos">
-                  <Link
-                    to={ `/${e.type}s/${e.id}` }
-                    className="favoriteTitleLink"
-                  >
-                    <p
-                      data-testid={ `${index}-horizontal-name` }
-                      className="favoriteTitle"
+                  <div className="titleContainer">
+                    <Link
+                      to={ `/${e.type}s/${e.id}` }
+                      className="favoriteTitleLink"
                     >
-                      {e.name}
+                      <p
+                        data-testid={ `${index}-horizontal-name` }
+                        className="favoriteTitle"
+                      >
+                        {e.name}
+                      </p>
+                    </Link>
+                    <p
+                      data-testid={ `${index}-horizontal-top-text` }
+                      className="favoriteCategory"
+                    >
+                      { e.nationality || e.alcoholicOrNot
+                        ? `${e.nationality}${e.alcoholicOrNot} - ${e.category}`
+                        : e.category}
                     </p>
-                  </Link>
-                  <p
-                    data-testid={ `${index}-horizontal-top-text` }
-                    className="favoriteCategory"
-                  >
-                    { e.nationality || e.alcoholicOrNot
-                      ? `${e.nationality}${e.alcoholicOrNot} - ${e.category}`
-                      : e.category}
-                  </p>
+                  </div>
                   <button
                     type="button"
                     onClick={ (event) => handleClick(event) }

@@ -27,6 +27,8 @@ a {
 
 @import './RecipeCard.css' ;
 
+@import './RecipeInProgress.css' ;
+
 @import './DoneRecipes.css' ;
 
 @import './FavoriteRecipes.css' ;

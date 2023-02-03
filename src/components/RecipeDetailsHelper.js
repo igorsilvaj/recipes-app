@@ -60,7 +60,6 @@ export default function RecipeDetailsHelper(props) {
           }
         </span>
       </div>
-
       <span data-testid="recipe-title" className="recipeDetailsTitle">
         {data[path][0][`str${source}`]}
       </span>

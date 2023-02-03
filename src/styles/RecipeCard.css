@@ -3,25 +3,28 @@
   border: 0.518px solid rgb(177, 177, 177);
   border-radius: 5px;
   box-sizing: border-box;
-  height: 166.12px;
+  height: 166px;
   position: relative;
   width: 163.2px;
 }
 
 .imgCard {
   border-radius: 4px 4px 0 0;
-  height: 135px;
+  height: 130px;
   width: 161.3px;
 }
 
 .txtCard {
+  align-items: center;
   color: rgb(26, 27, 28);
-  font-family: Epilogue , sans-serif;
+  display: flex;
+  flex-flow: row wrap;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
+  height: 31px;
+  justify-content: center;
   line-height: 12px;
-  margin: 5px 10px 0;
 }
 
 .btnGoToDetails {

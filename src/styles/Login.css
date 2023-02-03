@@ -40,3 +40,7 @@
   text-transform: uppercase;
   width: 276px;
 }
+
+.btnLogin:disabled {
+  background: rgb(255, 230, 166);
+}

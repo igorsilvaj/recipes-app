@@ -6,9 +6,12 @@ import shareIcon from '../images/shareIcon.svg';
 import RecommendationsCard from './RecommendationsCard';
 
 export default function RecipeDetailsHelper(props) {
-  const { data, path, source, favorite, matcher2, ingredients, measure,
+  const { data, path, source, favorite, ingredients, measure,
     video, recommendations, isDoneRecipe, handleClick, isinProgressRecipe,
     startRecipe } = props;
+  const matcher = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)
+    === 'Meal' ? 'Drink' : 'Meal';
+  const matcher2 = `${matcher.toLocaleLowerCase()}s`;
   const maxRecom = 6;
   return (
     <div className="recipeDetailsContainer">
@@ -102,17 +105,17 @@ autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-s
       <div className="recipeDetailsRecommendations">
         <h3 className="recipeDetailsBodyTitle">Recommended</h3>
         {recommendations
-                && (
-                  <div className="carouselContainer">
-                    {recommendations[matcher2]
-                      .map((a, index) => (
-                        index < maxRecom && (
-                          <RecommendationsCard
-                            key={ `key-${index}` }
-                            recipe={ a }
-                            index={ index }
-                          />)))}
-                  </div>)}
+          && (
+            <div className="carouselContainer">
+              {recommendations[matcher2]
+                .map((a, index) => (
+                  index < maxRecom && (
+                    <RecommendationsCard
+                      key={ `key-${index}` }
+                      recipe={ a }
+                      index={ index }
+                    />)))}
+            </div>)}
       </div>
 
       {
@@ -123,18 +126,11 @@ autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-s
             name="startRecipe"
             data-testid="start-recipe-btn"
             className="btnStartRecipe"
-            onClick={ startRecipe }
+            onClick={ (e) => startRecipe(e) }
           >
             {isinProgressRecipe
-              ? (
-                <span name="startRecipe">
-                  Continue Recipe
-                </span>)
-              : (
-                <span name="startRecipe">
-                  Start Recipe
-                </span>
-              )}
+              ? ('Continue Recipe')
+              : ('Start Recipe')}
           </button>
         )
       }

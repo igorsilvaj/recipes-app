@@ -1,41 +1,79 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useRef } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchApi } from '../redux/actions';
-import shareIcon from '../images/shareIcon.svg';
-import favoriteIcon from '../images/whiteHeartIcon.svg';
-import favoritedIcon from '../images/blackHeartIcon.svg';
+import RecipeInProgressHelper from '../components/RecipeInProgressHelper';
 
 function RecipeInProgress({ getData, data }) {
+  const firstMount = useRef(true);
+  const [alerta, setAlerta] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [ingredientChk, setIngredientChk] = useState({ 'ingredient-0': true });
+  const [ingredients, setIngredients] = useState();
+  const [measure, setMeasure] = useState();
   const history = useHistory();
   const { pathname } = history.location;
   const path = pathname.split('/')[1];
+  const id = pathname.split('/')[2];
   const source = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1);
-  const matcher2 = `${source.toLocaleLowerCase()}s`;
-  const { id } = useParams();
-  const firstMount = useRef(true);
-  const [inProgress, setInProgress] = useState([]);
-  const [inProgressLocal,
-    setInProgressLocal] = useState({ drinks: { [id]: [] }, meals: { [id]: [] } });
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const [favorite, setFavorite] = useState(favoriteRecipes
+    && !!favoriteRecipes.find((e) => e.id === id));
+
   useEffect(() => {
-    if (!firstMount.current) localStorage.setItem(id, JSON.stringify(inProgressLocal));
+    if (firstMount.current) {
+      if (pathname.includes('/meals')) {
+        getData(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+      }
+      if (pathname.includes('/drinks')) {
+        getData(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+      }
+    }
     firstMount.current = false;
-  }, [id, inProgressLocal]);
-
-  const ingredients = data && data !== undefined
-  && Object.entries(data[path][0]).filter((ingredient) => (
-    ingredient[0].includes('strIngredient'))).map((e) => e[1]).filter(
-    (e) => (e !== '' && e !== null),
-  );
+  }, []);
 
   useEffect(() => {
-    inProgress.forEach((el) => {
-      el.previousElementSibling.checked = true;
-      el.classList.add('step-check');
-    });
+    const ingredientsList = data && data !== undefined
+      && Object.entries(data[path][0]).filter((ingredient) => (
+        ingredient[0].includes('strIngredient'))).map((e) => e[1]).filter(
+        (e) => (e !== '' && e !== null),
+      );
+
+    const measureList = data && Object.entries(data[path][0]).filter((ingredient) => (
+      ingredient[0].includes('strMeasure'))).map((e) => e[1]).filter(
+      (e) => (e !== '' && e !== null),
+    );
+    setIngredients(ingredientsList);
+    setMeasure(measureList);
+    const doneIngredients = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    setIngredientChk(doneIngredients[path][id].reduce((acc, act) => (
+      { ...acc, [act]: true }), {}));
+  }, [data]);
+
+  const handleChange = ({ target }) => {
+    const { name } = target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    setIngredientChk({ ...ingredientChk, [name]: value });
+    let local = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const result = [];
+    if (local[path][id].find((e) => e === name)) {
+      result.push(...local[path][id].filter((e) => e !== name));
+    } else {
+      result.push(...local[path][id]);
+      result.push(name);
+    }
+    local = {
+      ...local,
+      [path]: local[path] && Object.assign(
+        local[path],
+        { [id]: [...result] },
+      ),
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(local));
     if (ingredients) {
+      console.log('change');
       const h5Elements = [].slice.call(document.getElementsByTagName('h5'));
       const checks = h5Elements.map((each) => each.previousElementSibling.checked)
         .find((each) => each === false);
@@ -43,11 +81,12 @@ function RecipeInProgress({ getData, data }) {
         setIsButtonDisabled(false);
       } else { setIsButtonDisabled(true); }
     }
-  }, [inProgress, ingredients]);
+  };
 
   function handleBtnClick() {
     history.push('/done-recipes');
-    const done = { id,
+    const done = {
+      id,
       type: source.toLowerCase(),
       nationality: path === 'meals' ? data[path][0].strArea : '',
       category: data[path][0].strCategory,
@@ -55,45 +94,11 @@ function RecipeInProgress({ getData, data }) {
       name: data[path][0][`str${source}`],
       image: data[path][0][`str${source}Thumb`],
       doneDate: new Date(),
-      tags: data[path][0].strTags !== null ? data[path][0].strTags.split(',') : [] };
+      tags: data[path][0].strTags !== null ? data[path][0].strTags.split(',') : [],
+    };
     localStorage.setItem('doneRecipes', JSON.stringify([done]));
   }
 
-  function handleChange({ target }) {
-    const element = target.nextSibling;
-    const elementLocal = target.nextSibling.innerHTML;
-    setInProgressLocal((prevState) => ({ ...prevState,
-      [matcher2]: { ...prevState[matcher2],
-        [id]: [...prevState[matcher2][id], elementLocal] } }));
-    setInProgress((prevState) => ([...prevState, element]));
-  }
-
-  useEffect(() => {
-    if (pathname.includes('/meals')) {
-      getData(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-    } if (pathname.includes('/drinks')) {
-      getData(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-    }
-  }, [getData, id, matcher2, pathname]);
-
-  useEffect(() => {
-    if (localStorage.getItem([id]) !== null && ingredients) {
-      const steps = JSON.parse(localStorage.getItem([id]))[matcher2][id];
-      const h5Elements = [].slice.call(document.getElementsByTagName('h5'));
-      const progressSteps = steps.map((step) => (
-        h5Elements.find((element) => step === element.innerHTML)
-      ));
-      progressSteps.forEach((el) => {
-        el.previousElementSibling.checked = true;
-        el.classList.add('step-check');
-      });
-    }
-  }, [data, id, ingredients, matcher2]);
-
-  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const [favorite, setFavorite] = useState(favoriteRecipes
-  && !!favoriteRecipes.find((e) => e.id === id));
-  const [alerta, setAlerta] = useState(false);
   const handleClick = ({ target }) => {
     const { name } = target;
     const goodTime = 3000;
@@ -136,99 +141,33 @@ function RecipeInProgress({ getData, data }) {
       }
     }
   };
-  const measure = data && Object.entries(data[path][0]).filter((ingredient) => (
-    ingredient[0].includes('strMeasure'))).map((e) => e[1]).filter(
-    (e) => (e !== '' && e !== null),
-  );
+
   return (
     <div>
       {alerta && <p>Link copied!</p>}
-      { data && (
-        <div className="recipeDetailsContainer">
-          <img
-            src={ data[path][0][`str${source}Thumb`] }
-            alt=""
-            data-testid="recipe-photo"
-            className="recipeDetailImg"
-          />
-          <div className="recipeDetaillsHeaderItems">
-            <p>
-              <span data-testid="recipe-category" className="recipeDetailsCategory">
-                { path === 'drinks'
-                  ? `${data[path][0].strCategory} ${data[path][0].strAlcoholic}`
-                  : data[path][0].strCategory }
-              </span>
-            </p>
-            <button
-              type="button"
-              onClick={ (event) => handleClick(event) }
-              className="recipeDetailsShareBtn"
-            >
-              <img
-                name="share"
-                data-testid="share-btn"
-                src={ shareIcon }
-                alt="Share Icon"
-                className="recipeDetailsTopImg"
-              />
-            </button>
-            <button
-              type="button"
-              onClick={ (event) => handleClick(event) }
-              className="recipeDetailsFavoriteBtn"
-            >
-              <img
-                name="favorite"
-                data-testid="favorite-btn"
-                src={ favorite ? favoritedIcon : favoriteIcon }
-                alt="Favorite Icon"
-                className="recipeDetailsTopImg"
-              />
-            </button>
-          </div>
-          <p>
-            <span data-testid="recipe-title" className="recipeDetailsTitle">
-              {data[path][0][`str${source}`]}
-            </span>
-          </p>
-          <div className="recipeDetailsIngredients">
-            <h3 className="recipeDetailsBodyTitle">Ingredients</h3>
-            <div className="boxWithBorder">
-              {ingredients.map((e, index) => (
-                <div key={ `ingredient-${index}` }>
-                  <label
-                    className="step-check ingredientCheckList"
-                    data-testid={ `${index}-ingredient-step` }
-                    htmlFor={ `ingredient-${index}` }
-                  >
-                    <input
-                      id={ `ingredient-${index}` }
-                      type="checkbox"
-                      onChange={ handleChange }
-                    />
-                    <h5>{`${measure[index]} ${e}`}</h5>
-                  </label>
-                </div>
-              )) }
-            </div>
-          </div>
-          <div className="recipeDetailsInstructions">
-            <h3 className="recipeDetailsBodyTitle">Instructions</h3>
-            <div className="boxWithBorder">
-              <span data-testid="instructions">{data[path][0].strInstructions}</span>
-            </div>
-          </div>
-          <button
-            disabled={ isButtonDisabled }
-            onClick={ handleBtnClick }
-            type="button"
-            data-testid="finish-recipe-btn"
-            className="btnFinishRecipe"
-          >
-            finish recipe
-          </button>
-        </div>
-      ) }
+      {
+        data
+          ? (
+            <RecipeInProgressHelper
+              { ...{
+                data,
+                path,
+                source,
+                favorite,
+                ingredients,
+                ingredientChk,
+                handleChange,
+                measure,
+                isButtonDisabled,
+                handleBtnClick,
+                handleClick,
+              } }
+            />
+          )
+          : (
+            <div />
+          )
+      }
     </div>
   );
 }

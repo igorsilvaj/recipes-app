@@ -11,83 +11,22 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
   const { pathname } = history.location;
   const path = pathname.split('/')[1];
   const source = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1);
-  const matcher = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)
-    === 'Meal' ? 'Drink' : 'Meal';
-  const matcher2 = `${matcher.toLocaleLowerCase()}s`;
+
   const { id } = useParams();
 
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   const isDoneRecipe = doneRecipes && !!(doneRecipes.find((e) => e.id === id));
 
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  const isinProgressRecipe = inProgressRecipes && !!inProgressRecipes[path][id];
+  const inProgressRecipes1 = !!inProgressRecipes;
+
+  const isinProgressRecipe = inProgressRecipes1 && (
+    !!inProgressRecipes[path] && !!inProgressRecipes[path][id]);
 
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [favorite, setFavorite] = useState(favoriteRecipes
     && !!favoriteRecipes.find((e) => e.id === id));
-  // const inProgressRecipesMock = {
-  //   drinks: {
-  //     15997: ['lista-de-ingredientes-utilizados'],
-  //   },
-  //   meals: {
-  //     52977: ['lista-de-ingredientes-utilizados'],
-  //   },
-  // };
-  // const mockStorage = () => {
-  //   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipesMock));
-  // };
-  // mockStorage();
-  // console.log(doneRecipes);
-  // const doneRecipesMock = [
-  //   {
-  //     id: '15997',
-  //     type: 'drink',
-  //     nationality: 'Germany',
-  //     category: 'Ordinary Drink',
-  //     alcoholicOrNot: 'Optional alcohol',
-  //     name: 'GG',
-  //     image: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
-  //     doneDate: '21/12/2019',
-  //     tags: [],
-  //   },
-  //   {
-  //     id: '52977',
-  //     type: 'meal',
-  //     nationality: 'Turkish',
-  //     category: 'Side',
-  //     alcoholicOrNot: '',
-  //     name: 'Corba',
-  //     image: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
-  //     doneDate: '21/08/2019',
-  //     tags: ['Soup'],
-  //   },
-  //   {
-  //     id: '17222',
-  //     type: 'drink',
-  //     nationality: '',
-  //     category: 'Cocktail',
-  //     alcoholicOrNot: 'Alcoholic',
-  //     name: 'A1',
-  //     image: 'https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg',
-  //     doneDate: '25/12/2019',
-  //     tags: [],
-  //   },
-  //   {
-  //     id: '53060',
-  //     type: 'meal',
-  //     nationality: 'Croatian',
-  //     category: 'Side',
-  //     alcoholicOrNot: '',
-  //     name: 'Burek',
-  //     image: 'https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg',
-  //     doneDate: '21/12/2020',
-  //     tags: ['Streetfood', 'Onthego'],
-  //   },
-  // ];
 
-  // const mockStorage = () => {
-  //   localStorage.setItem('doneRecipes', JSON.stringify(doneRecipesMock));
-  // };
   const [alerta, setAlerta] = useState(false);
 
   useEffect(() => {
@@ -102,10 +41,10 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
   }, [id]);
 
   const ingredients = data && data !== undefined
-  && Object.entries(data[path][0]).filter((ingredient) => (
-    ingredient[0].includes('strIngredient'))).map((e) => e[1]).filter(
-    (e) => (e !== '' && e !== null),
-  );
+    && Object.entries(data[path][0]).filter((ingredient) => (
+      ingredient[0].includes('strIngredient'))).map((e) => e[1]).filter(
+      (e) => (e !== '' && e !== null),
+    );
   const measure = data && Object.entries(data[path][0]).filter((ingredient) => (
     ingredient[0].includes('strMeasure'))).map((e) => e[1]).filter(
     (e) => (e !== '' && e !== null),
@@ -120,7 +59,24 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
       data[path][0].strVideo.replace('watch?v=', 'embed/'));
   }
 
-  const startRecipe = () => {
+  const startRecipe = ({ target }) => {
+    if (target.innerHTML === 'Start Recipe') {
+      let local = inProgressRecipes;
+      if (inProgressRecipes) {
+        local = {
+          ...local,
+          [path]: local[path]
+            ? Object.assign(local[path], { [id]: [] })
+            : { [id]: [] },
+        };
+      } else {
+        local = {
+          ...local,
+          [path]: { [id]: [] },
+        };
+      }
+      localStorage.setItem('inProgressRecipes', JSON.stringify(local));
+    }
     history.push(`/${path}/${id}/in-progress`);
   };
 
@@ -171,11 +127,11 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
         data
           ? (
             <RecipeDetailsHelper
-              { ...{ data,
+              { ...{
+                data,
                 path,
                 source,
                 favorite,
-                matcher2,
                 ingredients,
                 measure,
                 video,
@@ -183,7 +139,8 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
                 isDoneRecipe,
                 handleClick,
                 isinProgressRecipe,
-                startRecipe } }
+                startRecipe,
+              } }
             />
           )
           : (

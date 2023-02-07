@@ -1,13 +1,25 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+<!-- ABOUT THE PROJECT -->
+## About The Project
+Projeto em grupo realizado durante o curso de FrontEnd da Trybe.
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+### Installation
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+1. Clone the repo
+   ```sh
+   git clone git@github.com:igorsilvaj/recipes-app.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```
+3. Run the application
+   ```js
+   npm start
+   ```
+
+<!-- CONTACT -->
+## Contact
+
+Igor Silva - [LinkedIn](https://www.linkedin.com/in/igorjsilva/) - igorjsilvabiz@gmail.com
+
+Project Link: [https://igorsilvaj.github.io/](https://igorsilvaj.github.io/)

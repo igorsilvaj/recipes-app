@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import SearchBar from './SearchBar';
-import searchIcon from '../images/searchIcon.svg';
-import profileIcon from '../images/profileIcon.svg';
+import searchIcon from '../images/png/searchIcon.png';
+import profileIcon from '../images/png/profileIcon.png';
 
 function Header() {
   localStorage.getItem('user');

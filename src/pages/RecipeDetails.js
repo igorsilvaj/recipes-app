@@ -7,6 +7,7 @@ import { fetchApi, fetchApi2 } from '../redux/actions';
 import RecipeDetailsHelper from '../components/RecipeDetailsHelper';
 
 function RecipeDetails({ getData, data, getData2, recommendations }) {
+  const [validData, setValidData] = useState(false);
   const history = useHistory();
   const { pathname } = history.location;
   const path = pathname.split('/')[1];
@@ -30,6 +31,7 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
   const [alerta, setAlerta] = useState(false);
 
   useEffect(() => {
+    setValidData(false);
     if (pathname.includes('/meals')) {
       getData(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       getData2('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
@@ -40,21 +42,30 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
     }
   }, [id]);
 
-  const ingredients = data && data !== undefined
+  useEffect(() => {
+    if (data) {
+      const targetData = data[path][0].strYoutube;
+      if (targetData) {
+        setValidData(true);
+      }
+    }
+  }, [data]);
+
+  const ingredients = validData && data !== undefined
     && Object.entries(data[path][0]).filter((ingredient) => (
       ingredient[0].includes('strIngredient'))).map((e) => e[1]).filter(
       (e) => (e !== '' && e !== null),
     );
-  const measure = data && Object.entries(data[path][0]).filter((ingredient) => (
+  const measure = validData && Object.entries(data[path][0]).filter((ingredient) => (
     ingredient[0].includes('strMeasure'))).map((e) => e[1]).filter(
     (e) => (e !== '' && e !== null),
   );
 
   let video = '';
-  if (data && path === 'meals') {
+  if (validData && path === 'meals') {
     video = data[path][0].strYoutube.replace('watch?v=', 'embed/');
   }
-  if (data && path === 'drinks') {
+  if (validData && path === 'drinks') {
     video = data[path][0].strVideo && (
       data[path][0].strVideo.replace('watch?v=', 'embed/'));
   }
@@ -124,7 +135,7 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
     <div>
       {alerta && <p>Link copied!</p>}
       {
-        data
+        validData
           ? (
             <RecipeDetailsHelper
               { ...{

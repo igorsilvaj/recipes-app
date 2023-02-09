@@ -58,7 +58,7 @@ export default function FavoriteRecipes() {
       <FavoriteRecipesFilters handleClick={ handleClick } />
       <div className="favoritesDisplay">
         {
-          alerta && <p>Link copied!</p>
+          alerta && <p className="linkCopied">Link copied!</p>
         }
         {
           favorites

@@ -42,18 +42,20 @@
   color: transparent;
 }
 
+/* filter: invert(12%) sepia(56%) saturate(7337%)
+  hue-rotate(265deg) brightness(62%) contrast(93%); */
+
 .headerSearch {
-  filter: invert(12%) sepia(56%) saturate(7337%)
-    hue-rotate(265deg) brightness(62%) contrast(93%);
   height: 26.85px;
   position: absolute;
   right: 70px;
   width: 26.85px;
 }
 
+/* filter: invert(12%) sepia(56%) saturate(7337%)
+ hue-rotate(265deg) brightness(62%) contrast(93%); */
+
 .headerProfile {
-  filter: invert(12%) sepia(56%) saturate(7337%)
-    hue-rotate(265deg) brightness(62%) contrast(93%);
   height: 28.71px;
   position: absolute;
   right: 20px;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import favoriteIcon from '../images/whiteHeartIcon.svg';
 import favoritedIcon from '../images/blackHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
+import shareIcon from '../images/png/shareIcon.png';
 
 export default function RecipeInProgressHelper(props) {
   const { data, path, source, favorite, ingredients, ingredientChk, handleChange,
@@ -75,7 +75,9 @@ ingredientCheckList`
                   checked={ ingredientChk[`ingredient-${index}`] }
                   onChange={ handleChange }
                 />
-                <h5>{`${measure[index]} ${e}`}</h5>
+                <h5>
+                  {measure[index] !== undefined ? ` ${measure[index]} - ${e}` : ` ${e}`}
+                </h5>
               </label>
             </div>
           ))}

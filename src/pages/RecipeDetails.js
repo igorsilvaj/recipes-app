@@ -30,6 +30,10 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
 
   const [alerta, setAlerta] = useState(false);
 
+  const [ingredients, setIngredients] = useState();
+  const [measure, setMeasure] = useState();
+  const [video, setVideo] = useState();
+
   useEffect(() => {
     setValidData(false);
     if (pathname.includes('/meals')) {
@@ -43,32 +47,30 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
   }, [id]);
 
   useEffect(() => {
-    if (data) {
-      const targetData = data[path][0].strYoutube;
-      if (targetData) {
+    const invertedPath = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)
+      === 'Meal' ? 'Drink' : 'Meal';
+    const invertedPathWithS = `${invertedPath.toLocaleLowerCase()}s`;
+
+    if (recommendations && data[path]) {
+      const targetVideo = path === 'meals' ? data[path][0].strYoutube : 'none';
+      const targetRecommendation = recommendations[invertedPathWithS];
+      if (targetVideo && targetRecommendation) {
+        const ingredientsList = Object.entries(data[path][0]).filter((ingredient) => (
+          ingredient[0].includes('strIngredient'))).map((e) => e[1]).filter(
+          (e) => (e !== '' && e !== null),
+        );
+        const measureList = Object.entries(data[path][0]).filter((ingredient) => (
+          ingredient[0].includes('strMeasure'))).map((e) => e[1]).filter(
+          (e) => (e !== '' && e !== null),
+        );
+
+        setIngredients(ingredientsList);
+        setMeasure(measureList);
+        setVideo(targetVideo.replace('watch?v=', 'embed/'));
         setValidData(true);
       }
     }
-  }, [data]);
-
-  const ingredients = validData && data !== undefined
-    && Object.entries(data[path][0]).filter((ingredient) => (
-      ingredient[0].includes('strIngredient'))).map((e) => e[1]).filter(
-      (e) => (e !== '' && e !== null),
-    );
-  const measure = validData && Object.entries(data[path][0]).filter((ingredient) => (
-    ingredient[0].includes('strMeasure'))).map((e) => e[1]).filter(
-    (e) => (e !== '' && e !== null),
-  );
-
-  let video = '';
-  if (validData && path === 'meals') {
-    video = data[path][0].strYoutube.replace('watch?v=', 'embed/');
-  }
-  if (validData && path === 'drinks') {
-    video = data[path][0].strVideo && (
-      data[path][0].strVideo.replace('watch?v=', 'embed/'));
-  }
+  }, [data, recommendations, path]);
 
   const startRecipe = ({ target }) => {
     if (target.innerHTML === 'Start Recipe') {
@@ -133,30 +135,27 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
 
   return (
     <div>
-      {alerta && <p>Link copied!</p>}
+      {alerta && <p className="linkCopied">Link copied!</p>}
       {
         validData
-          ? (
-            <RecipeDetailsHelper
-              { ...{
-                data,
-                path,
-                source,
-                favorite,
-                ingredients,
-                measure,
-                video,
-                recommendations,
-                isDoneRecipe,
-                handleClick,
-                isinProgressRecipe,
-                startRecipe,
-              } }
-            />
-          )
-          : (
-            <div />
-          )
+        && (
+          <RecipeDetailsHelper
+            { ...{
+              data,
+              path,
+              source,
+              favorite,
+              ingredients,
+              measure,
+              video,
+              recommendations,
+              isDoneRecipe,
+              handleClick,
+              isinProgressRecipe,
+              startRecipe,
+            } }
+          />
+        )
       }
     </div>
   );

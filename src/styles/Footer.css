@@ -10,11 +10,12 @@
   width: 100%;
 }
 
+/* filter: invert(96%) sepia(58%) saturate(5143%)
+  hue-rotate(325deg) brightness(100%) contrast(98%); */
+
 .btnFooterDrink, .btnFooterMeal {
   background-color: transparent;
   border: none;
-  filter: invert(96%) sepia(58%) saturate(5143%)
-    hue-rotate(325deg) brightness(100%) contrast(98%);
 }
 
 .btnFooterDrink {

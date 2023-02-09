@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import '../styles/RecipeCard.css';
 import { connect } from 'react-redux';
 import { fetchApi, fetchApi2 } from '../redux/actions';
@@ -14,22 +14,30 @@ function RecommendationsCard(props) {
    === 'Meal' ? 'Drink' : 'Meal';
 
   return (
-    <div className="recipeCard" data-testid={ `${index}-recommendation-card` }>
-      <img
-        src={ recipe[`str${matcher}Thumb`] }
-        alt="recipe"
-        data-testid={ `${index}-card-img` }
-        className="imgCard"
-      />
+    <Link
+      to={
+        pathname.includes('/drinks')
+          ? `/meals/${recipe.idMeal}`
+          : `/drinks/${recipe.idDrink}`
+      }
+    >
+      <div className="recipeCard" data-testid={ `${index}-recommendation-card` }>
+        <img
+          src={ recipe[`str${matcher}Thumb`] }
+          alt="recipe"
+          data-testid={ `${index}-card-img` }
+          className="imgCard"
+        />
 
-      <p className="txtCard">
-        <span
-          data-testid={ `${index}-recommendation-title` }
-        >
-          {recipe[`str${matcher}`]}
-        </span>
-      </p>
-    </div>
+        <p className="txtCard">
+          <span
+            data-testid={ `${index}-recommendation-title` }
+          >
+            {recipe[`str${matcher}`]}
+          </span>
+        </p>
+      </div>
+    </Link>
   );
 }
 

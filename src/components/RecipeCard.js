@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import '../styles/RecipeCard.css';
+import loading from '../images/loading.gif';
 
 function RecipeCard(props) {
   const { recipe, index } = props;
@@ -10,24 +11,19 @@ function RecipeCard(props) {
   const path = pathname.split('/')[1];
   const matcher = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1);
 
-  const HandleCLick = () => {
-    if (pathname.includes('/meals')) {
-      history.push(`/meals/${recipe.idMeal}`);
-    }
-    if (pathname.includes('/drinks')) {
-      history.push(`/drinks/${recipe.idDrink}`);
-    }
-  };
   return (
-    <button
-      type="button"
-      onClick={ HandleCLick }
-      className="btnGoToDetails"
+    <Link
+      to={
+        pathname.includes('/meals')
+          ? `/meals/${recipe.idMeal}`
+          : `/drinks/${recipe.idDrink}`
+      }
     >
-      Veja Detalhes
       <div className="recipeCard" data-testid={ `${index}-recipe-card` }>
         <img
-          src={ recipe[`str${matcher}Thumb`] }
+          src={ recipe[`str${matcher}Thumb`]
+            ? recipe[`str${matcher}Thumb`]
+            : loading }
           alt="recipe"
           data-testid={ `${index}-card-img` }
           className="imgCard"
@@ -39,9 +35,8 @@ function RecipeCard(props) {
             {recipe[`str${matcher}`]}
           </span>
         </p>
-
       </div>
-    </button>
+    </Link>
   );
 }
 

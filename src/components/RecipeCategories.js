@@ -60,7 +60,21 @@ function RecipeCategories(props) {
               )
             ))
           )
-          : (<div />)
+          : ([...Array(maxCategories)].map((category, index) => (
+            index < maxCategories && (
+              <div key={ `category-${index}` }>
+                <button
+                  type="button"
+                  name="Placeholder"
+                  className={ `recipeCategory all${path}` }
+                  onClick={ (e) => handleClick(e) }
+                >
+                  <span className="txtCategory">Loading...</span>
+                </button>
+              </div>
+            )
+          ))
+          )
       }
     </div>
   );

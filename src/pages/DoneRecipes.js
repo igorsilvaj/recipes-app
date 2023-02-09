@@ -93,7 +93,7 @@ export default function DoneRecipes() {
       </div>
       <div className="donesDisplay">
         {
-          alerta && <p>Link copied!</p>
+          alerta && <p className="linkCopied">Link copied!</p>
         }
         {
           doneRecipes && doneRecipes.map((recipe, index) => (

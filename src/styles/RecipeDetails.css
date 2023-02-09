@@ -70,11 +70,12 @@
   width: 150px;
 }
 
+/* filter: invert(77%) sepia(77%) saturate(489%) hue-rotate(338deg)
+  brightness(101%) contrast(98%); */
+
 .recipeDetailsShareBtn {
   background-color: transparent;
   border: none;
-  filter: invert(77%) sepia(77%) saturate(489%) hue-rotate(338deg)
-    brightness(101%) contrast(98%);
   position: absolute;
   right: 50px;
   top: 10px;
@@ -168,4 +169,8 @@
   position: fixed;
   text-transform: uppercase;
   width: 340px;
+}
+
+.displayNone {
+  display: none;
 }

@@ -84,7 +84,9 @@ function RecipeInProgress({ getData, data }) {
   };
 
   function handleBtnClick() {
-    history.push('/done-recipes');
+    const ten = 10;
+    const currentDate = new Date().toJSON().slice(0, ten);
+    const local = JSON.parse(localStorage.getItem('doneRecipes'));
     const done = {
       id,
       type: source.toLowerCase(),
@@ -93,10 +95,24 @@ function RecipeInProgress({ getData, data }) {
       alcoholicOrNot: path === 'drinks' ? data[path][0].strAlcoholic : '',
       name: data[path][0][`str${source}`],
       image: data[path][0][`str${source}Thumb`],
-      doneDate: new Date(),
+      doneDate: currentDate,
       tags: data[path][0].strTags !== null ? data[path][0].strTags.split(',') : [],
     };
-    localStorage.setItem('doneRecipes', JSON.stringify([done]));
+    if (local) {
+      if (local.find((e) => e.id === id)) {
+        const filtered = local.filter((e) => e.id !== id);
+        localStorage.setItem('doneRecipes', JSON.stringify(filtered));
+        setFavorite(false);
+      } else {
+        local.push(done);
+        localStorage.setItem('doneRecipes', JSON.stringify(local));
+        setFavorite(true);
+      }
+    } else {
+      localStorage.setItem('doneRecipes', JSON.stringify([done]));
+      setFavorite(true);
+    }
+    history.push('/done-recipes');
   }
 
   const handleClick = ({ target }) => {
@@ -144,7 +160,7 @@ function RecipeInProgress({ getData, data }) {
 
   return (
     <div>
-      {alerta && <p>Link copied!</p>}
+      {alerta && <p className="linkCopied">Link copied!</p>}
       {
         data
           ? (

@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import clipboardCopy from 'clipboard-copy';
 import { fetchApi } from '../redux/actions';
 import RecipeInProgressHelper from '../components/RecipeInProgressHelper';
 
@@ -73,7 +74,6 @@ function RecipeInProgress({ getData, data }) {
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(local));
     if (ingredients) {
-      console.log('change');
       const h5Elements = [].slice.call(document.getElementsByTagName('h5'));
       const checks = h5Elements.map((each) => each.previousElementSibling.checked)
         .find((each) => each === false);
@@ -122,6 +122,7 @@ function RecipeInProgress({ getData, data }) {
       history.push(`/${path}/${id}/in-progress`);
     }
     if (name.includes('share')) {
+      clipboardCopy(`${window.location.origin}/${path}/${id}`);
       navigator.clipboard.writeText(
         `${window.location.origin}/${path}/${id}`,
       );

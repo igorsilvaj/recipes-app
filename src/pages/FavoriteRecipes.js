@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import clipboardCopy from 'clipboard-copy';
 import Header from '../components/Header';
 import FavoriteRecipesFilters from '../components/FavoriteRecipesFilters';
 import favoriteIcon from '../images/blackHeartIcon.svg';
@@ -25,10 +26,12 @@ export default function FavoriteRecipes() {
     const favoriteTarget = favorites[name.split('-')[0]];
     const goodTime = 3000;
     if (name.includes('share')) {
-      console.log(window.location);
-      navigator.clipboard.writeText(
+      clipboardCopy(
         `${window.location.origin}/${favoriteTarget.type}s/${favoriteTarget.id}`,
       );
+      // navigator.clipboard.writeText(
+      //     `${window.location.origin}/${favoriteTarget.type}s/${favoriteTarget.id}`,
+      //   );
       setAlerta(true);
       setTimeout(() => {
         setAlerta(false);

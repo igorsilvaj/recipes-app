@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import clipboardCopy from 'clipboard-copy';
 import { fetchApi, fetchApi2 } from '../redux/actions';
 import RecipeDetailsHelper from '../components/RecipeDetailsHelper';
 
@@ -50,7 +51,6 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
     const invertedPath = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)
       === 'Meal' ? 'Drink' : 'Meal';
     const invertedPathWithS = `${invertedPath.toLocaleLowerCase()}s`;
-
     if (recommendations && data[path]) {
       const targetVideo = path === 'meals' ? data[path][0].strYoutube : 'none';
       const targetRecommendation = recommendations[invertedPathWithS];
@@ -97,9 +97,10 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
     const { name } = target;
     const goodTime = 3000;
     if (name.includes('share')) {
-      navigator.clipboard.writeText(
-        `${window.location.origin}/${path}/${id}`,
-      );
+      clipboardCopy(`${window.location.origin}/${path}/${id}`);
+      // navigator.clipboard.writeText(
+      //   `${window.location.origin}/${path}/${id}`,
+      // );
       setAlerta(true);
       setTimeout(() => {
         setAlerta(false);

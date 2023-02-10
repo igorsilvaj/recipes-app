@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import clipboardCopy from 'clipboard-copy';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
@@ -46,9 +47,10 @@ export default function DoneRecipes() {
 
   const shareButton = (id, type) => {
     const goodTime = 2000;
-    navigator.clipboard.writeText(
-      `${window.location.origin}/${type}s/${id}`,
-    );
+    clipboardCopy(`${window.location.origin}/${type}s/${id}`);
+    // navigator.clipboard.writeText(
+    //   `${window.location.origin}/${type}s/${id}`,
+    // );
     setAlerta(true);
     setTimeout(() => {
       setAlerta(false);

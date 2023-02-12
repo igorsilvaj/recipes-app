@@ -1,5 +1,15 @@
 .loginContainer {
   align-items: center;
+  display: flex;
+  flex-flow: column wrap;
+  gap: 10px;
+  height: 640px;
+  justify-content: center;
+  width: 100%;
+}
+
+.loginBox {
+  align-items: center;
   background-image: url('../images/png/bgLogin.png');
   background-position: center;
   background-repeat: no-repeat;
@@ -8,7 +18,7 @@
   gap: 10px;
   height: 640px;
   justify-content: flex-end;
-  width: 100%;
+  width: 360px;
 }
 
 .loginLogo {
@@ -43,4 +53,17 @@
 
 .btnLogin:disabled {
   background: rgb(255, 230, 166);
+}
+
+@media screen and ( width > 360px ) {
+
+  .loginContainer {
+    background-color: rgb(65, 25, 127);
+    height: 100vh;
+  }
+
+  .loginBox {
+    border-radius: 5px;
+    box-shadow: inset 0 0 44px 23px rgba(65, 25, 127, 0.5);
+  }
 }

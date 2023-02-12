@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { saveUser } from '../redux/actions';
 import logo from '../images/png/logoRecipesAppLogin.png';
 
@@ -12,6 +13,15 @@ function Login({ dispatch }) {
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    const str = `A intenção do projeto é um site com foco no mobile.
+    Estilizamos com css puro tomando como objetivo o 
+    protótipo do figma com layout 360x640px.`;
+    Swal.fire({
+      text: str,
+    });
+  }, []);
 
   useEffect(() => {
     const { email, password } = userLogin;
@@ -39,37 +49,39 @@ function Login({ dispatch }) {
 
   return (
     <div className="loginContainer">
-      <div>
-        <img src={ logo } alt="logo" className="loginLogo" />
+      <div className="loginBox">
+        <div>
+          <img src={ logo } alt="logo" className="loginLogo" />
+        </div>
+        { willRedirect && <Redirect to="/meals" /> }
+        <input
+          onChange={ handleChange }
+          className="inputEmail"
+          name="email"
+          type="text"
+          data-testid="email-input"
+          value={ userLogin.email }
+          placeholder="Email"
+        />
+        <input
+          onChange={ handleChange }
+          className="inputPass"
+          name="password"
+          type="password"
+          data-testid="password-input"
+          value={ userLogin.password }
+          placeholder="Password"
+        />
+        <button
+          disabled={ isButtonDisabled }
+          className="btnLogin"
+          onClick={ handleClick }
+          type="button"
+          data-testid="login-submit-btn"
+        >
+          Enter
+        </button>
       </div>
-      { willRedirect && <Redirect to="/meals" /> }
-      <input
-        onChange={ handleChange }
-        className="inputEmail"
-        name="email"
-        type="text"
-        data-testid="email-input"
-        value={ userLogin.email }
-        placeholder="Email"
-      />
-      <input
-        onChange={ handleChange }
-        className="inputPass"
-        name="password"
-        type="password"
-        data-testid="password-input"
-        value={ userLogin.password }
-        placeholder="Password"
-      />
-      <button
-        disabled={ isButtonDisabled }
-        className="btnLogin"
-        onClick={ handleClick }
-        type="button"
-        data-testid="login-submit-btn"
-      >
-        Enter
-      </button>
     </div>
   );
 }

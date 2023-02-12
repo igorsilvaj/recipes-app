@@ -62,7 +62,7 @@ function Recipes(props) {
         {
           filteredRecipes
             ? (
-              <div>
+              <div className="recipesBody">
                 <RecipeCategories key={ `actual-${path}` } />
                 <div className="cardsContainer">
                   {filteredRecipes.map((e, index) => (

@@ -1,8 +1,46 @@
+.recipesBody {
+  align-items: center;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+}
+
 .cardsContainer {
   display: flex;
   flex-flow: row wrap;
   gap: 10px;
   height: 67.8vh;
-  justify-content: center;
   margin-bottom: 690px;
+  width: 336.5px;
+}
+
+@media screen and ( width > 360px ) {
+
+  .cardsContainer {
+    align-content: center;
+    height: auto;
+    margin-bottom: 80px;
+    width: 336.5px;
+  }
+}
+
+@media screen and ( width > 600px ) {
+
+  .cardsContainer {
+    width: 510px;
+  }
+}
+
+@media screen and ( width > 760px ) {
+
+  .cardsContainer {
+    width: 683px;
+  }
+}
+
+@media screen and ( width > 900px ) {
+
+  .cardsContainer {
+    width: 856px;
+  }
 }

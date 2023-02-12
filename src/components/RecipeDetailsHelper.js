@@ -100,8 +100,8 @@ autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-s
             </div>
             <div className="recipeDetailsRecommendations">
               <h3 className="recipeDetailsBodyTitle">Recommended</h3>
+              <Recommendations />
             </div>
-            <Recommendations />
             {
               !isDoneRecipe
                 && (

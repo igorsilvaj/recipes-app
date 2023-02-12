@@ -1,6 +1,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-Projeto em grupo realizado durante o curso de FrontEnd da Trybe.
+Group project done during Trybe's Front End developer course. 
+Consider that the design proposed in the figma prototype was 360px x 640px.
 
 ### Installation
 

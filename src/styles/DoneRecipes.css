@@ -72,7 +72,7 @@
   justify-content: flex-start;
   padding: 10px;
   position: relative;
-  width: 152.5px;
+  width: 128px;
   word-break: normal;
 }
 
@@ -88,10 +88,8 @@
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
-  height: 12px;
   line-height: 15px;
   text-align: start;
-  width: 100%;
 }
 
 .doneCategory {
@@ -137,7 +135,8 @@
   height: 14px;
   justify-content: center;
   line-height: 9px;
-  width: 29px;
+  padding: 0 5px;
+  width: auto;
 }
 
 .doneShareBtn {
@@ -153,4 +152,5 @@
 .doneShareImg {
   filter: invert(91%) sepia(25%) saturate(2611%)
     hue-rotate(329deg) brightness(104%) contrast(98%);
+  transform: translateX(27px);
 }

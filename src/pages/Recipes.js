@@ -15,7 +15,7 @@ function Recipes(props) {
   const firstMount = useRef(true);
   const { pathname } = history.location;
   const path = pathname.split('/')[1];
-  const maxRecipeCards = 100;
+  const maxRecipeCards = 12;
 
   const [filteredRecipes, setFilteredRecipes] = useState(null);
 

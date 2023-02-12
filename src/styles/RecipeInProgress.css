@@ -24,3 +24,7 @@
   text-transform: uppercase;
   width: 340px;
 }
+
+.btnFinishRecipe:disabled {
+  background: rgb(255, 230, 166);
+}

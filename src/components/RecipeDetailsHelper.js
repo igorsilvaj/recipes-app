@@ -3,16 +3,12 @@ import PropTypes from 'prop-types';
 import favoriteIcon from '../images/whiteHeartIcon.svg';
 import favoritedIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/png/shareIcon.png';
-import RecommendationsCard from './RecommendationsCard';
+import Recommendations from './Recommendations';
 
 export default function RecipeDetailsHelper(props) {
   const { data, path, source, favorite, ingredients, measure,
-    video, recommendations, isDoneRecipe, handleClick, isinProgressRecipe,
+    video, isDoneRecipe, handleClick, isinProgressRecipe,
     startRecipe } = props;
-  const matcher = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)
-    === 'Meal' ? 'Drink' : 'Meal';
-  const matcher2 = `${matcher.toLocaleLowerCase()}s`;
-  const maxRecom = 6;
   return (
     <div className="recipeDetailsContainer">
       {
@@ -53,11 +49,6 @@ export default function RecipeDetailsHelper(props) {
                   className="recipeDetailsTopImg"
                 />
               </button>
-              {/* <div
-          className={
-            `${source === 'Meal' ? 'imgMealCategoryDetails' : 'imgDrinkCategoryDetails'} ${data[path][0].strCategory.replace(/\s/g, '').replace('/', '')}`
-          }
-        /> */}
               <span data-testid="recipe-category" className="recipeDetailsCategory">
                 {
                   path === 'drinks'
@@ -109,35 +100,23 @@ autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-s
             </div>
             <div className="recipeDetailsRecommendations">
               <h3 className="recipeDetailsBodyTitle">Recommended</h3>
-              {recommendations
-          && (
-            <div className="carouselContainer">
-              {recommendations[matcher2]
-                .map((a, index) => (
-                  index < maxRecom && (
-                    <RecommendationsCard
-                      key={ `key-${index}` }
-                      recipe={ a }
-                      index={ index }
-                    />)))}
-            </div>)}
             </div>
-
+            <Recommendations />
             {
               !isDoneRecipe
-        && (
-          <button
-            type="button"
-            name="startRecipe"
-            data-testid="start-recipe-btn"
-            className="btnStartRecipe"
-            onClick={ (e) => startRecipe(e) }
-          >
-            {isinProgressRecipe
-              ? ('Continue Recipe')
-              : ('Start Recipe')}
-          </button>
-        )
+                && (
+                  <button
+                    type="button"
+                    name="startRecipe"
+                    data-testid="start-recipe-btn"
+                    className="btnStartRecipe"
+                    onClick={ (e) => startRecipe(e) }
+                  >
+                    {isinProgressRecipe
+                      ? ('Continue Recipe')
+                      : ('Start Recipe')}
+                  </button>
+                )
             }
           </>
         )

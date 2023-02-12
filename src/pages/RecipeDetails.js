@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import clipboardCopy from 'clipboard-copy';
-import { fetchApi, fetchApi2 } from '../redux/actions';
+import { fetchApi } from '../redux/actions';
 import RecipeDetailsHelper from '../components/RecipeDetailsHelper';
 
-function RecipeDetails({ getData, data, getData2, recommendations }) {
+function RecipeDetails({ getData, data }) {
   const [validData, setValidData] = useState(false);
   const history = useHistory();
   const { pathname } = history.location;
@@ -39,22 +39,16 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
     setValidData(false);
     if (pathname.includes('/meals')) {
       getData(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-      getData2('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     }
     if (pathname.includes('/drinks')) {
       getData(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-      getData2('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     }
   }, [id]);
 
   useEffect(() => {
-    const invertedPath = path.charAt(0).toUpperCase() + path.slice(1, path.length - 1)
-      === 'Meal' ? 'Drink' : 'Meal';
-    const invertedPathWithS = `${invertedPath.toLocaleLowerCase()}s`;
-    if (recommendations && data[path]) {
+    if (data && data[path]) {
       const targetVideo = path === 'meals' ? data[path][0].strYoutube : 'none';
-      const targetRecommendation = recommendations[invertedPathWithS];
-      if (targetVideo && targetRecommendation) {
+      if (targetVideo) {
         const ingredientsList = Object.entries(data[path][0]).filter((ingredient) => (
           ingredient[0].includes('strIngredient'))).map((e) => e[1]).filter(
           (e) => (e !== '' && e !== null),
@@ -70,7 +64,7 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
         setValidData(true);
       }
     }
-  }, [data, recommendations, path]);
+  }, [data, path]);
 
   const startRecipe = ({ target }) => {
     if (target.innerHTML === 'Start Recipe') {
@@ -98,9 +92,6 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
     const goodTime = 3000;
     if (name.includes('share')) {
       clipboardCopy(`${window.location.origin}/${path}/${id}`);
-      // navigator.clipboard.writeText(
-      //   `${window.location.origin}/${path}/${id}`,
-      // );
       setAlerta(true);
       setTimeout(() => {
         setAlerta(false);
@@ -149,7 +140,6 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
               ingredients,
               measure,
               video,
-              recommendations,
               isDoneRecipe,
               handleClick,
               isinProgressRecipe,
@@ -164,13 +154,10 @@ function RecipeDetails({ getData, data, getData2, recommendations }) {
 
 const mapDispatchToProps = (dispatch) => ({
   getData: (url) => dispatch(fetchApi(url)),
-  getData2: (url) => dispatch(fetchApi2(url)),
-
 });
 
 const mapStateToProps = (state) => ({
   data: state.apiResponse.data,
-  recommendations: state.apiResponse.recommendations,
 });
 
 RecipeDetails.propTypes = {

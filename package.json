@@ -1,5 +1,6 @@
 {
-  "name": "recipes-app-test",
+  "name": "recipes-app",
+  "homepage": "https://igorsilvaj.github.io/recipes-app/",
   "version": "1.0.0",
   "private": true,
   "engines": {

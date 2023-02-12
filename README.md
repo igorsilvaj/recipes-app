@@ -23,4 +23,4 @@ Consider that the design proposed in the figma prototype was 360px x 640px.
 
 Igor Silva - [LinkedIn](https://www.linkedin.com/in/igorjsilva/) - igorjsilvabiz@gmail.com
 
-Project Link: [https://igorsilvaj.github.io/](https://igorsilvaj.github.io/)
+Project Link: [https://igorsilvaj.github.io/recipes-app](https://igorsilvaj.github.io/recipes-app)

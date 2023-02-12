@@ -15,30 +15,32 @@ export default function Footer() {
 
   return (
     <footer data-testid="footer" className="footer">
-      <button
-        onClick={ redirectToDrinkList }
-        className="btnFooterDrink"
-        data-testid="drink-btn"
-      >
-        <img
-          alt="Drink"
-          src={ drinkIcon }
-          data-testid="drinks-bottom-btn"
-          className="imgFooterDrink"
-        />
-      </button>
-      <button
-        onClick={ redirectToMealList }
-        className="btnFooterMeal"
-        data-testid="meals-btn"
-      >
-        <img
-          alt="Meal"
-          src={ mealIcon }
-          data-testid="meals-bottom-btn"
-          className="imgFooterMeal"
-        />
-      </button>
+      <div className="footerBtnContainer">
+        <button
+          onClick={ redirectToDrinkList }
+          className="btnFooterDrink"
+          data-testid="drink-btn"
+        >
+          <img
+            alt="Drink"
+            src={ drinkIcon }
+            data-testid="drinks-bottom-btn"
+            className="imgFooterDrink"
+          />
+        </button>
+        <button
+          onClick={ redirectToMealList }
+          className="btnFooterMeal"
+          data-testid="meals-btn"
+        >
+          <img
+            alt="Meal"
+            src={ mealIcon }
+            data-testid="meals-bottom-btn"
+            className="imgFooterMeal"
+          />
+        </button>
+      </div>
     </footer>
   );
 }

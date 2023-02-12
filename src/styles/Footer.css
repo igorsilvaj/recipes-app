@@ -5,23 +5,20 @@
   display: flex;
   flex-flow: row wrap;
   height: 52px;
-  justify-content: space-between;
+  justify-content: center;
   position: fixed;
   width: 100%;
 }
 
-/* filter: invert(96%) sepia(58%) saturate(5143%)
-  hue-rotate(325deg) brightness(100%) contrast(98%); */
+.footerBtnContainer {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 0 100px;
+  justify-content: space-around;
+  width: 360px;
+}
 
 .btnFooterDrink, .btnFooterMeal {
   background-color: transparent;
   border: none;
-}
-
-.btnFooterDrink {
-  margin-left: 80px;
-}
-
-.btnFooterMeal {
-  margin-right: 80px;
 }

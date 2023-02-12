@@ -11,7 +11,7 @@ import Recipes from './pages/Recipes';
 function App() {
   return (
     <Switch>
-      <Route component={ Login } path="/" exact />
+      <Route component={ Login } path="/" exact basename="/recipes-app" />
       <Route component={ Recipes } path="/meals" exact />
       <Route component={ Recipes } path="/drinks" exact />
       <Route component={ RecipeDetails } path="/meals/:id" exact />

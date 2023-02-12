@@ -15,10 +15,11 @@ function Login({ dispatch }) {
   });
 
   useEffect(() => {
-    const str = `A intenção do projeto é um site com foco no mobile.
-    Estilizamos com css puro tomando como objetivo o 
-    protótipo do figma com layout 360x640px.`;
+    const str = `Site com foco no mobile.
+    Para o CSS foi utilizado o protótipo do figma com layout 360x640px.`;
     Swal.fire({
+      title: 'Aproveite o App de Receitas',
+      icon: 'success',
       text: str,
     });
   }, []);

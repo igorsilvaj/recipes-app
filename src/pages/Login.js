@@ -15,12 +15,20 @@ function Login({ dispatch }) {
   });
 
   useEffect(() => {
-    const str = `Site com foco no mobile.
-    Para o CSS foi utilizado o protótipo do figma com layout 360x640px.`;
+    const l1 = `Para efetuar login utilize qualquer email e senha.`;
+    const l2 = `Ex: teste@teste.com 1234567`;
+    const l3 = `Site desenvolvido durante curso de front-end com foco no mobile.`;
+    const l4 = `Para o CSS foi utilizado o protótipo do figma com layout 360x640px.`;
     Swal.fire({
       title: 'Aproveite o App de Receitas',
       icon: 'success',
-      text: str,
+      html: `<div>${l1}</div>
+             <br>
+             <div><strong>${l2}</strong></div>
+             <br>
+             <div>${l3}</div>
+             <br>
+             <div>${l4}</div>`,
     });
   }, []);
 
